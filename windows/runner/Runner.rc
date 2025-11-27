@@ -90,12 +90,21 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
+<<<<<<< HEAD
             VALUE "FileDescription", "school_internship" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "school_internship" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "school_internship.exe" "\0"
             VALUE "ProductName", "school_internship" "\0"
+=======
+            VALUE "FileDescription", "intershipflutter" "\0"
+            VALUE "FileVersion", VERSION_AS_STRING "\0"
+            VALUE "InternalName", "intershipflutter" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
+            VALUE "OriginalFilename", "intershipflutter.exe" "\0"
+            VALUE "ProductName", "intershipflutter" "\0"
+>>>>>>> HH/UI
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

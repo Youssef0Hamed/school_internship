@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intershipflutter/Presentation/Screens/splashScreens/splashScreen.dart';
+import 'package:intershipflutter/businessLogic/InicatorProvider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+ChangeNotifierProvider(create: (context) => Inicatorprovider(), child: MyApp(),)
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -9,8 +14,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Ya RAAAb walad rabi3 ");
-
-    
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+     
+      home: splashScreen(),
+    );
   }
 }
+

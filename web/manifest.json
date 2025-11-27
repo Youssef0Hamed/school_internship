@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
     "name": "school_internship",
     "short_name": "school_internship",
+=======
+    "name": "intershipflutter",
+    "short_name": "intershipflutter",
+>>>>>>> HH/UI
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
