@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:intershipflutter/Constans/colors.dart';
 import 'package:intershipflutter/Presentation/Screens/splashScreens/onBoardingScreen.dart';
 
@@ -18,7 +17,7 @@ class _FirstscreenState extends State<splashScreen> {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => onBoardingScreen(),));
     }); 
   }
-   
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
