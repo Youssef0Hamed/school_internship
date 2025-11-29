@@ -12,11 +12,9 @@ class Signupholder extends StatefulWidget {
 
   @override
   State<Signupholder> createState() => _SignupholderState();
-  
 }
 
 class _SignupholderState extends State<Signupholder> {
-
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Inicatorprovider>(context);
@@ -24,43 +22,41 @@ class _SignupholderState extends State<Signupholder> {
     return Scaffold(
       backgroundColor: mainColors().backgroundColor,
       body: Padding(
-        padding:  EdgeInsets.symmetric(vertical: 45, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 45, horizontal: 20),
 
         child: Column(
           children: [
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
-
                 provider.currentindexuser == 0
                     ? SizedBox(width: 24)
                     : GestureDetector(
-                        onTap: () {
-                          provider.pageController.previousPage(
-                            duration: Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
-                          );
-                        },
-                        child: Icon(
-                          Icons.arrow_back_ios,
-                          size: 22,
-                          color: mainColors().primary,
-                        ),
+                      onTap: () {
+                        provider.pageController.previousPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        size: 22,
+                        color: mainColors().primary,
                       ),
+                    ),
 
                 Row(
                   children: List.generate(
                     4,
                     (index) => Container(
-                      margin:  EdgeInsets.symmetric(horizontal: 2),
+                      margin: EdgeInsets.symmetric(horizontal: 2),
                       width: provider.currentindexuser == index ? 38 : 5,
                       height: 5,
                       decoration: BoxDecoration(
-                        color: provider.currentindexuser == index
-                            ? mainColors().primary
-                            : Colors.grey.shade400,
+                        color:
+                            provider.currentindexuser == index
+                                ? mainColors().primary
+                                : Colors.grey.shade400,
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
@@ -69,13 +65,11 @@ class _SignupholderState extends State<Signupholder> {
               ],
             ),
 
-
-
             Expanded(
               child: PageView(
                 controller: provider.pageController,
                 onPageChanged: provider.changeScreensUsers,
-                children:  [
+                children: [
                   SignupScreen(),
                   EnterPhoneScreen(),
                   VerifyphoneScreen(),
