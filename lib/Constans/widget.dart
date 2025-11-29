@@ -29,7 +29,7 @@ Widget mainbutton(String text,double width,double height,{VoidCallback? onPresse
 Widget Textfiled(String Text){
   return   TextField(
                   decoration: InputDecoration(
-                    hintText: "${Text}" ,
+                    hintText: Text ,
                     hintStyle:  TextStyle(fontSize: 15),
                     filled: true,
                     fillColor: Colors.grey.shade100,

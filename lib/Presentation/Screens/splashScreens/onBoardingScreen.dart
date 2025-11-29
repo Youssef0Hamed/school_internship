@@ -4,7 +4,7 @@ import 'package:intershipflutter/businessLogic/InicatorProvider.dart';
 import 'package:provider/provider.dart';
 
 class onBoardingScreen extends StatefulWidget {
-   onBoardingScreen({super.key});
+   const onBoardingScreen({super.key});
 
   @override
   State<
