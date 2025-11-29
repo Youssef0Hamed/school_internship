@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Presentation/Screens/splashScreens/splashScreen.dart';
-import 'package:intershipflutter/businessLogic/InicatorProvider.dart';
+import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
+import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provider.dart';
+import 'package:intershipflutter/businessLogic/home%20provideres/offer_provider.dart';
+import 'package:intershipflutter/businessLogic/home%20provideres/restaurant_provider.dart';
 import 'package:provider/provider.dart';
+
+
 
 void main() {
   runApp(
-ChangeNotifierProvider(create: (context) => Inicatorprovider(), child: MyApp(),)
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => OfferProvider()),
+        ChangeNotifierProvider(create: (_) => CuisineProvider()),
+        ChangeNotifierProvider(create: (_) => RestaurantProvider()),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -14,11 +25,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-     
-      home: splashScreen(),
+      home: HomeScreen(),
     );
   }
 }
-
