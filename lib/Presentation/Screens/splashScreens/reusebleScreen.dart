@@ -27,10 +27,9 @@ class OnBoardingItem extends StatelessWidget {
     final provider = Provider.of<Inicatorprovider>(context);
 
     return Padding(
-      padding:  EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+      padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
       child: Column(
         children: [
-        
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -42,9 +41,10 @@ class OnBoardingItem extends StatelessWidget {
                     width: provider.currentindex == index ? 38 : 5,
                     height: 5,
                     decoration: BoxDecoration(
-                      color: provider.currentindex == index
-                          ? mainColors().primary
-                          : Colors.grey,
+                      color:
+                          provider.currentindex == index
+                              ? mainColors().primary
+                              : Colors.grey,
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -52,7 +52,10 @@ class OnBoardingItem extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
                 },
                 child: Row(
                   children: [
@@ -63,10 +66,10 @@ class OnBoardingItem extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                     Icon(Icons.keyboard_arrow_right_sharp, size: 17),
+                    Icon(Icons.keyboard_arrow_right_sharp, size: 17),
                   ],
                 ),
-              )
+              ),
             ],
           ),
 
@@ -102,7 +105,6 @@ class OnBoardingItem extends StatelessWidget {
 
           const Gap(40),
 
-
           if (!isLast)
             ElevatedButton(
               onPressed: () {
@@ -113,9 +115,10 @@ class OnBoardingItem extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: mainColors().primary,
-                minimumSize:  Size(double.infinity, 50),
+                minimumSize: Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(30),
+                ),
               ),
               child: const Text(
                 "Continue",
@@ -127,42 +130,44 @@ class OnBoardingItem extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: mainColors().primary,
-                    minimumSize:  Size(double.infinity, 50),
+                    minimumSize: Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
                   ),
-                  child:  Text("Log in",
-                      style: TextStyle(color: Colors.white)),
+                  child: Text("Log in", style: TextStyle(color: Colors.white)),
                 ),
-                 Gap(12),
-                            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Signupholder()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
-                  elevation: 0,
-                  backgroundColor: Colors.white,
-                  side: BorderSide(color: mainColors().primary),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                Gap(12),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Signupholder()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 50),
+                    elevation: 0,
+                    backgroundColor: Colors.white,
+                    side: BorderSide(color: mainColors().primary),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: Text(
+                    "Sign up",
+                    style: TextStyle(color: mainColors().primary),
                   ),
                 ),
-                child: Text(
-                  "Sign up",
-                  style: TextStyle(color: mainColors().primary),
-                ),
-              ),
-
               ],
-            )
+            ),
         ],
       ),
     );
