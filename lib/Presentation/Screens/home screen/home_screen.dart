@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Presentation/widgets/home%20screen%20widgets/cuisines_section.dart';
-import 'package:intershipflutter/Presentation/widgets/home%20screen%20widgets/offers_carousel.dart';
-import 'package:intershipflutter/Presentation/widgets/home%20screen%20widgets/popular_restaurants.dart';
+import 'package:intershipflutter/Constans/widgets/home%20screen%20widgets/cuisines_section.dart';
+import 'package:intershipflutter/Constans/widgets/home%20screen%20widgets/offers_carousel.dart';
+import 'package:intershipflutter/Constans/widgets/home%20screen%20widgets/popular_restaurants.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/offer_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/restaurant_provider.dart';
