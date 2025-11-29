@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Presentation/Screens/splashScreens/reusebleScreen.dart';
+import 'package:intershipflutter/Constans/widgets/onbording_widget.dart';
 import 'package:intershipflutter/businessLogic/InicatorProvider.dart';
 import 'package:provider/provider.dart';
 
