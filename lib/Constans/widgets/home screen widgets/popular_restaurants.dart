@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:intershipflutter/businessLogic/home%20provideres/restaurant_provider.dart';
+import 'package:intershipflutter/Constans/models/restaurant_model.dart';
 
 
 
@@ -185,7 +185,7 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                     topRight: Radius.circular(16),
                   ),
                   child: CachedNetworkImage(
-                    imageUrl: restaurant.image,
+                    imageUrl: restaurant.imageUrl,
                     height: 140,
                     width: double.infinity,
                     fit: BoxFit.cover,

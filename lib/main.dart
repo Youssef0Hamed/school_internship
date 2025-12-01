@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/offer_provider.dart';
-import 'package:intershipflutter/businessLogic/home%20provideres/restaurant_provider.dart';
+import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
 import 'package:provider/provider.dart';
 
-
-//hi
 void main() {
   runApp(
     MultiProvider(
