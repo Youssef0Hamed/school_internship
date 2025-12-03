@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/models/offer_model.dart';
+import 'package:intershipflutter/Constans/models/home%20models/offer_model.dart';
 
 
 class OfferProvider with ChangeNotifier {

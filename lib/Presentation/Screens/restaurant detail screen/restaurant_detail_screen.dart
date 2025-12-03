@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/models/review_model.dart';
+import 'package:intershipflutter/Constans/models/restaurant%20detail%20models/review_model.dart';
 import 'package:intershipflutter/Constans/widgets/restaurant%20detail%20tabs/about_tab.dart';
 import 'package:intershipflutter/Constans/widgets/restaurant%20detail%20tabs/menu_tab.dart';
 import 'package:intershipflutter/Constans/widgets/restaurant%20detail%20tabs/reviews_tab.dart';

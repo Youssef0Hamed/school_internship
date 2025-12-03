@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/models/restaurant_model.dart';
+import 'package:intershipflutter/Constans/models/restaurant%20detail%20models/restaurant_model.dart';
 
 class AboutTab extends StatelessWidget {
   final RestaurantModel restaurant;

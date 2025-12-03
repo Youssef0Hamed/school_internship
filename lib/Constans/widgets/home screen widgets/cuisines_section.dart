@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/models/cuisine_model.dart';
+import 'package:intershipflutter/Constans/models/home%20models/cuisine_model.dart';
 
 class CuisinesSection extends StatefulWidget {
   final List<CuisineModel> cuisines;

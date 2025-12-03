@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/models/cuisine_model.dart';
+import 'package:intershipflutter/Constans/models/home%20models/cuisine_model.dart';
 class CuisineProvider with ChangeNotifier {
   List<CuisineModel> cuisines = [
     CuisineModel(id: 'all', name: 'All', icon: '🥗', isActive: true),

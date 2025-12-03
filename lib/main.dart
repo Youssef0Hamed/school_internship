@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
+import 'package:intershipflutter/Presentation/login_screens/splash%20Screen/splash_Screen.dart';
+import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/offer_provider.dart';
 import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
@@ -12,6 +14,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => OfferProvider()),
         ChangeNotifierProvider(create: (_) => CuisineProvider()),
         ChangeNotifierProvider(create: (_) => RestaurantProvider()),
+        ChangeNotifierProvider(create: (_) => Inicatorprovider()),
       ],
       child: const MyApp(),
     ),

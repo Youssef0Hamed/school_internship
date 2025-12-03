@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:intershipflutter/Constans/models/restaurant_model.dart';
+import 'package:intershipflutter/Constans/models/restaurant%20detail%20models/restaurant_model.dart';
 import 'package:intershipflutter/Presentation/Screens/restaurant%20detail%20screen/restaurant_detail_screen.dart';
 import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
 import 'package:provider/provider.dart';

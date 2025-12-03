@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/models/offer_model.dart';
+import 'package:intershipflutter/Constans/models/home%20models/offer_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OffersCarousel extends StatefulWidget {

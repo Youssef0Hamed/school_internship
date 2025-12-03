@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/models/review_model.dart';
+import 'package:intershipflutter/Constans/models/restaurant%20detail%20models/review_model.dart';
 
 
 class ReviewsTab extends StatefulWidget {

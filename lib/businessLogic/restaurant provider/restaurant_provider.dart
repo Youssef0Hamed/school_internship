@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/models/menu_item_model.dart';
-import 'package:intershipflutter/Constans/models/restaurant_model.dart';
-import 'package:intershipflutter/Constans/models/review_model.dart';
+import 'package:intershipflutter/Constans/models/restaurant%20detail%20models/menu_item_model.dart';
+import 'package:intershipflutter/Constans/models/restaurant%20detail%20models/restaurant_model.dart';
+import 'package:intershipflutter/Constans/models/restaurant%20detail%20models/review_model.dart';
 
 class RestaurantProvider with ChangeNotifier {
   // 🔹 List of restaurants (you can expand this later)
