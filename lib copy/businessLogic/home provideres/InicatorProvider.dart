@@ -17,7 +17,6 @@ class Inicatorprovider extends ChangeNotifier {
   }
 
   void showpass(){
-    
     show = !show;
     notifyListeners();
   }

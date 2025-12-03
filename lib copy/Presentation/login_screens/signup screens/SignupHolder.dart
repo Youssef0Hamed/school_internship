@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/colors.dart';
-import 'package:intershipflutter/Presentation/Screens/signup%20screens/Signup.dart';
-import 'package:intershipflutter/Presentation/Screens/signup%20screens/doneScreen.dart';
-import 'package:intershipflutter/Presentation/Screens/signup%20screens/enterPhone.dart';
-import 'package:intershipflutter/Presentation/Screens/signup%20screens/verifyPhone.dart';
-import 'package:intershipflutter/businessLogic/InicatorProvider.dart';
+import 'package:intershipflutter/Constans/widgets/colors.dart';
+import 'package:intershipflutter/Presentation/login_screens/signup%20screens/Signup.dart';
+import 'package:intershipflutter/Presentation/login_screens/signup%20screens/doneScreen.dart';
+import 'package:intershipflutter/Presentation/login_screens/signup%20screens/enterPhone.dart';
+import 'package:intershipflutter/Presentation/login_screens/signup%20screens/verifyPhone.dart';
+import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
 import 'package:provider/provider.dart';
 
 class Signupholder extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/colors.dart';
-import 'package:intershipflutter/Presentation/Screens/onbording_screens/onBoarding_Screen.dart';
+import 'package:intershipflutter/Constans/widgets/colors.dart';
+import 'package:intershipflutter/Presentation/login_screens/onbording_screens/onBoarding_Screen.dart';
 
 
 class splashScreen extends StatefulWidget {

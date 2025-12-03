@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intershipflutter/Constans/widgets/login_widgets.dart';
-import 'package:intershipflutter/Presentation/Screens/login%20screens/Login.dart';
-import 'package:intershipflutter/businessLogic/InicatorProvider.dart';
+import 'package:intershipflutter/Presentation/login_screens/login%20screens/Login.dart';
+import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
 import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
