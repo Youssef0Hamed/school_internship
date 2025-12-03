@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intershipflutter/Constans/models/restaurant_model.dart';
 import 'package:intershipflutter/Presentation/Screens/restaurant%20detail%20screen/restaurant_detail_screen.dart';
+import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
+import 'package:provider/provider.dart';
 
 
 class PopularRestaurants extends StatefulWidget {
@@ -192,7 +194,7 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                 Stack(
                   children: [
                     CachedNetworkImage(
-                      imageUrl: restaurant.imageUrl,
+                      imageUrl: restaurant.images[0],
                       height: 120,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -211,8 +213,8 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
           
                     // FAVORITE ICON
                     Positioned(
-                      top: 8,
-                      right: 8,
+                      top: 4,
+                      right: 4,
                       child: GestureDetector(
                         onTap: () => _toggleFavorite(restaurant.id),
                         child: Container(
@@ -226,15 +228,23 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                               ),
                             ],
                           ),
-                          padding: const EdgeInsets.all(6),
-                          child: Icon(
-                            restaurant.isFavorite
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color:
-                                restaurant.isFavorite ? Colors.red : Colors.grey,
-                            size: 18,
-                          ),
+                          child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        restaurant.isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        Provider.of<RestaurantProvider>(context, listen: false).toggleFavorite(restaurant.id);
+                      },
+                    ),
+                  ),
                         ),
                       ),
                     ),

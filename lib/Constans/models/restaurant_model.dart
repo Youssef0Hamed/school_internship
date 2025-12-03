@@ -9,7 +9,7 @@ class RestaurantModel {
   final double rating;
   final int reviewCount;
   final String discount;
-  final String imageUrl;
+  final List<String> images; 
   final String about;
   final List<String> socialMedia;
   final String location;
@@ -27,12 +27,12 @@ class RestaurantModel {
     required this.rating,
     required this.reviewCount,
     required this.discount,
-    required this.imageUrl,
     required this.about,
     required this.socialMedia,
     required this.location,
     required this.amenities,
     this.isFavorite = false,
+   required this.images,
   });
 
   // factory RestaurantModel.fromJson(Map<String, dynamic> json) {

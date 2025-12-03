@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Constans/models/review_model.dart';
-import 'package:intershipflutter/Constans/widgets/restaurant%20detail%20wigdets/about_tab.dart';
-import 'package:intershipflutter/Constans/widgets/restaurant%20detail%20wigdets/menu_tab.dart';
-import 'package:intershipflutter/Constans/widgets/restaurant%20detail%20wigdets/reviews_tab.dart';
+import 'package:intershipflutter/Constans/widgets/restaurant%20detail%20tabs/about_tab.dart';
+import 'package:intershipflutter/Constans/widgets/restaurant%20detail%20tabs/menu_tab.dart';
+import 'package:intershipflutter/Constans/widgets/restaurant%20detail%20tabs/reviews_tab.dart';
 import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -17,17 +17,23 @@ class RestaurantDetailScreen extends StatefulWidget {
 
 class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
     with SingleTickerProviderStateMixin {
+  // Put this at the top of your State class:
+  late PageController _pageController;
+  int _currentImage = 0;
+
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _pageController = PageController();
   }
 
   @override
   void dispose() {
     _tabController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -89,12 +95,27 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                     ),
                   ),
                 ],
+
                 flexibleSpace: FlexibleSpaceBar(
                   background: Stack(
                     fit: StackFit.expand,
                     children: [
-                      Image.network(restaurant.imageUrl, fit: BoxFit.cover),
-                      // Carousel indicators (dots)
+                      // ---------------- Carousel ----------------
+                      PageView.builder(
+                        controller: _pageController,
+                        itemCount: restaurant.images.length,
+                        onPageChanged: (index) {
+                          setState(() => _currentImage = index);
+                        },
+                        itemBuilder: (_, index) {
+                          return Image.network(
+                            restaurant.images[index],
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+
+                      // ---------------- Dot Indicators ----------------
                       Positioned(
                         bottom: 16,
                         left: 0,
@@ -102,14 +123,17 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(
-                            5,
-                            (index) => Container(
-                              width: index == 0 ? 24 : 8,
+                            restaurant.images.length,
+                            (index) => AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              width: _currentImage == index ? 22 : 8,
                               height: 8,
                               margin: const EdgeInsets.symmetric(horizontal: 4),
                               decoration: BoxDecoration(
                                 color:
-                                    index == 0 ? Colors.white : Colors.white70,
+                                    _currentImage == index
+                                        ? Colors.white
+                                        : Colors.white54,
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             ),
@@ -120,7 +144,6 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                   ),
                 ),
               ),
-
               // ---------------- Restaurant Info ----------------
               SliverToBoxAdapter(
                 child: Container(

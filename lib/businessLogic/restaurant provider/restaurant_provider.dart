@@ -17,8 +17,11 @@ class RestaurantProvider with ChangeNotifier {
       rating: 4.3,
       reviewCount: 385,
       discount: '10% off',
-      imageUrl:
-          'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&h=400&fit=crop',
+      images: [
+        'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&h=400&fit=crop',
+      ],
       about:
           'At Tacos, we believe food should do more than fill you up—it should make you feel good and create moments you remember.',
       socialMedia: ['facebook', 'instagram', 'twitter'],
@@ -28,7 +31,7 @@ class RestaurantProvider with ChangeNotifier {
     RestaurantModel(
       id: '2',
       name: 'Tacos',
-      cuisine: 'Mexican',
+      cuisine: 'continental',
       address: '1.11 Norway, London',
       phone: '01222439150',
       email: 'Tacos@gmail.com',
@@ -36,8 +39,11 @@ class RestaurantProvider with ChangeNotifier {
       rating: 4.3,
       reviewCount: 385,
       discount: '10% off',
-      imageUrl:
-          'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&h=400&fit=crop',
+      images: [
+        'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&h=400&fit=crop',
+      ],
       about:
           'At Tacos, we believe food should do more than fill you up—it should make you feel good and create moments you remember.',
       socialMedia: ['facebook', 'instagram', 'twitter'],
@@ -55,14 +61,17 @@ class RestaurantProvider with ChangeNotifier {
       rating: 4.3,
       reviewCount: 385,
       discount: '10% off',
-      imageUrl:
-          'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&h=400&fit=crop',
+      images: [
+        'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&h=400&fit=crop',
+      ],
       about:
           'At Tacos, we believe food should do more than fill you up—it should make you feel good and create moments you remember.',
       socialMedia: ['facebook', 'instagram', 'twitter'],
       location: 'elobour',
       amenities: ['WiFi', 'Parking', 'Outdoor Seating'],
-    ),
+    ),  
   ];
   // 🔹 Reviews for the current restaurant
   List<Review> reviews = [

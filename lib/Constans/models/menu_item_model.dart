@@ -15,25 +15,25 @@ class MenuItem {
     required this.imageUrl,
   });
 
-  // factory MenuItem.fromJson(Map<String, dynamic> json) {
-  //   return MenuItem(
-  //     id: json['id'] ?? '',
-  //     name: json['name'] ?? '',
-  //     description: json['description'] ?? '',
-  //     price: (json['price'] ?? 0).toDouble(),
-  //     category: json['category'] ?? '',
-  //     imageUrl: json['imageUrl'] ?? '',
-  //   );
-  // }
+  factory MenuItem.fromJson(Map<String, dynamic> json) {
+    return MenuItem(
+      id: json['id'] ?? '',
+      name: json['name'] ?? '',
+      description: json['description'] ?? '',
+      price: (json['price'] ?? 0).toDouble(),
+      category: json['category'] ?? '',
+      imageUrl: json['imageUrl'] ?? '',
+    );
+  }
 
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'id': id,
-  //     'name': name,
-  //     'description': description,
-  //     'price': price,
-  //     'category': category,
-  //     'imageUrl': imageUrl,
-  //   };
-  //  }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'price': price,
+      'category': category,
+      'imageUrl': imageUrl,
+    };
+   }
 }
