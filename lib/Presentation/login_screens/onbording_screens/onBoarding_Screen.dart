@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/widgets/onbording_widget.dart';
+import 'package:intershipflutter/Constans/widgets/login%20widgets/onbording_widget.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
 import 'package:provider/provider.dart';
 

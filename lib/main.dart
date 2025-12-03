@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
-import 'package:intershipflutter/Presentation/login_screens/splash%20Screen/splash_Screen.dart';
+import 'package:intershipflutter/Presentation/Screens/favourite%20screen/favourite_screen.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
-=======
-import 'package:intershipflutter/Presentation/Screens/UserScreens/favouriteScreen.dart';
->>>>>>> main
 import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/offer_provider.dart';
 import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
 import 'package:provider/provider.dart';
 
-
-//hi
 void main() {
   runApp(
     MultiProvider(
@@ -34,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Favouritescreen(),
+      home: Favourite_screen(),
     );
   }
 }

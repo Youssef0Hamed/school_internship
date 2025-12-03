@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:intershipflutter/Constans/widgets/login_widgets.dart';
+import 'package:intershipflutter/Constans/widgets/login%20widgets/login_widgets.dart';
 import 'package:intershipflutter/Presentation/login_screens/signup%20screens/SignupHolder.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
 import 'package:provider/provider.dart';

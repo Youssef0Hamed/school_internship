@@ -1,11 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/colors.dart';
-import 'package:intershipflutter/Presentation/widgets/favourite_screen/favourite_card_widget.dart';
-import 'package:intershipflutter/Presentation/widgets/favourite_screen/favourite_resturant_name.dart';
-import 'package:intershipflutter/businessLogic/home%20provideres/favouriteCardModel.dart';
+import 'package:intershipflutter/Constans/widgets/colors.dart';
+import 'package:intershipflutter/Constans/widgets/favourite%20card%20widget/favourite_card_widget.dart';
+import 'package:intershipflutter/Constans/models/favouriteCardModel.dart';
 
-class Favouritescreen extends StatelessWidget {
-  Favouritescreen({super.key});
+// ---------------------------------------------------------
+//  Favourite Restaurant Name Widget
+// ---------------------------------------------------------
+class FavouriteResturantName extends StatelessWidget {
+  final String name;
+
+  const FavouriteResturantName(this.name, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: Colors.black),
+      ),
+      child: Text(name),
+    );
+  }
+}
+
+// ---------------------------------------------------------
+//  Favourite Screen
+// ---------------------------------------------------------
+class Favourite_screen extends StatelessWidget {
+  Favourite_screen({super.key});
 
   final List<Favouritecardmodel> data = [
     Favouritecardmodel(
@@ -42,7 +66,7 @@ class Favouritescreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           "Favourites",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -54,6 +78,7 @@ class Favouritescreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // Category chips
             Padding(
               padding: const EdgeInsets.only(left: 30),
               child: SizedBox(
@@ -64,19 +89,22 @@ class Favouritescreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (_, i) {
                     return Padding(
-                      padding: EdgeInsetsGeometry.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: FavouriteResturantName(name[i]),
                     );
                   },
                 ),
               ),
             ),
+
+            // Favourite Cards List
             ListView.builder(
               itemCount: data.length,
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (_, i) {
                 return Padding(
-                  padding: EdgeInsetsGeometry.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     vertical: 10,
                     horizontal: 30,
                   ),

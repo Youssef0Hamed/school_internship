@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/businessLogic/home%20provideres/favouriteCardModel.dart';
+import 'package:intershipflutter/Constans/models/favouriteCardModel.dart';
 
 class FavouriteCard extends StatelessWidget {
   final Favouritecardmodel model;
