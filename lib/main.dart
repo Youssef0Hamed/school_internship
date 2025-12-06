@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Presentation/Screens/profile%20menu%20screen/profile_menu_screen.dart';
+import 'package:intershipflutter/Presentation/login_screens/splash%20Screen/splash_Screen.dart';
+import 'package:intershipflutter/businessLogic/auth_provider.dart/auth_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/offer_provider.dart';
@@ -16,6 +17,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => RestaurantProvider()),
         ChangeNotifierProvider(create: (_) => Inicatorprovider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
       child: MyApp(),
     ),
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProfileMenuScreen(),
+      home: const SplashScreen(),
     );
   }
 }
