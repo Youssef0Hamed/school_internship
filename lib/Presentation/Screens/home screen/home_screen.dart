@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
     final restaurants = context.watch<RestaurantProvider>().restaurants;
 
     return Scaffold(
-
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [

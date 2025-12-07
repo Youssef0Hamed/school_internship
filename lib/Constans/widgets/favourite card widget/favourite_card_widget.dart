@@ -24,7 +24,7 @@ class FavouriteCard extends StatelessWidget {
             children: [
               Container(
                 height: 163,
-                width: 450,
+                width: double.infinity,
                 child: Image.network(model.imageUrl, fit: BoxFit.cover),
               ),
               

@@ -63,20 +63,8 @@ class _Favourite_screenState extends State<Favourite_screen> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-             Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (_) => HomeScreen(
-
-            ),
-          ),
-        );
-          },
-        ),
       ),
+          extendBodyBehindAppBar: false,
       backgroundColor: Colors.white,
 
       body: SingleChildScrollView(
@@ -84,9 +72,9 @@ class _Favourite_screenState extends State<Favourite_screen> {
           children: [
             // CATEGORY FILTER BUTTONS
             Padding(
-              padding: const EdgeInsets.only(left: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: SizedBox(
-                height: 55,
+                height: 37,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: cuisinesProvider.cuisines.length,
@@ -111,7 +99,7 @@ class _Favourite_screenState extends State<Favourite_screen> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 10,
-                    horizontal: 30,
+                    horizontal: 20,
                   ),
                   child: Stack(
                     children: [
