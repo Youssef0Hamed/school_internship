@@ -80,7 +80,7 @@ class SignupScreen extends StatelessWidget {
                 Text("Already have an account "),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (_) => LoginScreen()),
                     );

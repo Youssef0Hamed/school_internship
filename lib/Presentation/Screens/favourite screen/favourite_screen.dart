@@ -6,10 +6,10 @@ import 'package:intershipflutter/Constans/models/favouriteCardModel.dart';
 // ---------------------------------------------------------
 //  Favourite Restaurant Name Widget
 // ---------------------------------------------------------
-class FavouriteResturantName extends StatelessWidget {
+class FavouriteResturant extends StatelessWidget {
   final String name;
 
-  const FavouriteResturantName(this.name, {super.key});
+  const FavouriteResturant(this.name, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class Favourite_screen extends StatelessWidget {
                   itemBuilder: (_, i) {
                     return Padding(
                       padding: const EdgeInsets.all(10),
-                      child: FavouriteResturantName(name[i]),
+                      child: FavouriteResturant(name[i]),
                     );
                   },
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intershipflutter/Constans/widgets/login widgets/login_widgets.dart';
 import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
+import 'package:intershipflutter/Presentation/Screens/home.dart';
 import 'package:intershipflutter/Presentation/login_screens/signup screens/SignupHolder.dart';
 import 'package:intershipflutter/businessLogic/home provideres/InicatorProvider.dart';
 import 'package:provider/provider.dart';
@@ -128,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
+                            builder: (context) => const HomePage(),
                           ),
                         );
                       },
@@ -190,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(builder: (_) => Signupholder()),
                             );

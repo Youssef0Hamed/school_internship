@@ -64,7 +64,7 @@ class OnBoardingItem extends StatelessWidget {
 
                 InkWell(
                   onTap:
-                      () => Navigator.push(
+                      () => Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => LoginScreen()),
                       ),
@@ -156,7 +156,7 @@ class OnBoardingItem extends StatelessWidget {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => LoginScreen()),
                       );
@@ -181,7 +181,7 @@ class OnBoardingItem extends StatelessWidget {
 
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => Signupholder()),
                       );
