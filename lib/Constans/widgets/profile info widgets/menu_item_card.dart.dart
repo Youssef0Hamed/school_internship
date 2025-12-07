@@ -78,7 +78,7 @@ class _MenuItemCardState extends State<MenuItemCard>
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Row(
               children: [
                 Container(
@@ -86,7 +86,7 @@ class _MenuItemCardState extends State<MenuItemCard>
                     color: widget.iconColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  padding: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(8),
                   child: Icon(
                     widget.icon,
                     color: widget.isDestructive

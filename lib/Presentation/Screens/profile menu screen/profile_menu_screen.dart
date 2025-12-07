@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:intershipflutter/Constans/widgets/profile info widgets/profile_header.dart';
 import 'package:intershipflutter/Constans/widgets/profile%20info%20widgets/menu_item_card.dart.dart';
-import 'package:intershipflutter/Constans/widgets/profile%20info%20widgets/profile_header.dart';
-import 'package:intershipflutter/Presentation/Screens/profile%20menu%20screen/Personal_Info_Screen.dart';
-import 'package:intershipflutter/businessLogic/user%20provider/user_provider.dart';
+import 'package:intershipflutter/Presentation/Screens/profile menu screen/Personal_Info_Screen.dart';
+import 'package:intershipflutter/Presentation/login_screens/login screens/Login.dart';
+import 'package:intershipflutter/businessLogic/user provider/user_provider.dart';
 import 'package:provider/provider.dart';
-
 
 class ProfileMenuScreen extends StatelessWidget {
   const ProfileMenuScreen({Key? key}) : super(key: key);
 
   void _navigateToPersonalInfo(BuildContext context) {
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const PersonalInfoScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => const PersonalInfoScreen()),
     );
   }
 
@@ -25,9 +23,7 @@ class ProfileMenuScreen extends StatelessWidget {
         duration: const Duration(seconds: 2),
         behavior: SnackBarBehavior.floating,
         margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
   }
@@ -61,6 +57,10 @@ class ProfileMenuScreen extends StatelessWidget {
                   ),
                 ),
               );
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
             },
             child: const Text(
               'Logout',
@@ -81,15 +81,12 @@ class ProfileMenuScreen extends StatelessWidget {
           return SingleChildScrollView(
             child: Column(
               children: [
-                // Profile Header
                 ProfileHeader(
                   userName: userProvider.user.fullName,
                   profileImageUrl: userProvider.user.profileImageUrl,
                   showEditButton: true,
                   onEditPressed: () => _navigateToPersonalInfo(context),
                 ),
-
-                // Menu Items
                 const SizedBox(height: 16),
                 MenuItemCard(
                   title: 'Personal information',
@@ -113,8 +110,10 @@ class ProfileMenuScreen extends StatelessWidget {
                   title: 'Awards and promocodes',
                   icon: Icons.card_giftcard,
                   iconColor: const Color(0xFF1B7B7A),
-                  onTap: () =>
-                      _showComingSoonSnackbar(context, 'Awards and promocodes'),
+                  onTap: () => _showComingSoonSnackbar(
+                    context,
+                    'Awards and promocodes',
+                  ),
                 ),
                 MenuItemCard(
                   title: 'Settings',
@@ -131,7 +130,7 @@ class ProfileMenuScreen extends StatelessWidget {
                 MenuItemCard(
                   title: 'Log out',
                   icon: Icons.logout,
-                  iconColor: Colors.red[600]!,
+                  iconColor: Colors.red[600] ?? Colors.red,
                   isDestructive: true,
                   onTap: () => _showLogoutDialog(context),
                 ),

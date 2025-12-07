@@ -60,27 +60,7 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                   color: Colors.black87,
                 ),
               ),
-              GestureDetector(
-                onTap: widget.onSeeAll,
-                child: Row(
-                  children: const [
-                    Text(
-                      'See all',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF0D7377),
-                      ),
-                    ),
-                    SizedBox(width: 4),
-                    Icon(
-                      Icons.chevron_right,
-                      color: Color(0xFF0D7377),
-                      size: 18,
-                    ),
-                  ],
-                ),
-              ),
+              
             ],
           ),
         ),

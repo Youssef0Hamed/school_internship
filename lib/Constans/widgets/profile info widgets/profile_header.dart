@@ -54,7 +54,7 @@ class ProfileHeader extends StatelessWidget {
                   ],
                 ),
                 child: CircleAvatar(
-                  radius: 60,
+                  radius: 55,
                   backgroundColor: Colors.grey[300],
                   backgroundImage: NetworkImage(profileImageUrl),
                   onBackgroundImageError: (exception, stackTrace) {
@@ -101,7 +101,7 @@ class ProfileHeader extends StatelessWidget {
               letterSpacing: 0.5,
             ),
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 20),
         ],
       ),
     );

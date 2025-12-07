@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
+import 'package:intershipflutter/Presentation/Screens/home.dart';
 import 'package:intershipflutter/Presentation/login_screens/splash%20Screen/splash_Screen.dart';
 import 'package:intershipflutter/businessLogic/auth_provider.dart/auth_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: const HomePage(),
     );
   }
 }
