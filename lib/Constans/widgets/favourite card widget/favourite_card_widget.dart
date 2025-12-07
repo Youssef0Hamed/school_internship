@@ -25,26 +25,20 @@ class FavouriteCard extends StatelessWidget {
               Container(
                 height: 163,
                 width: 450,
-                child: Image.asset(model.imageUrl, fit: BoxFit.cover),
+                child: Image.network(model.imageUrl, fit: BoxFit.cover),
               ),
-              Positioned(
-                top: 10,
-                right: 10,
-                child: CircleAvatar(
-                  backgroundColor: Color(0xffD9D9D9),
-                  child: InkWell(
-                    
-                    child: Icon(
-                      Icons.favorite_outlined,
-                      color: model.isFavourite ? Color(0xffFF4444) : Colors.grey,
-                    ),
-                  ),
-                ),
-              ),
+              
               Positioned(
                 top: 141,
                 left: 10,
                 child: Container(
+                  width: 83,
+                  height: 23,
+
+                  decoration: BoxDecoration(
+                    color: Color(0xffFFFFFF),
+                    borderRadius: BorderRadius.circular(7),
+                  ),
                   child: Center(
                     child: Text(
                       "${model.discount}% off",
@@ -54,13 +48,6 @@ class FavouriteCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  width: 83,
-                  height: 23,
-
-                  decoration: BoxDecoration(
-                    color: Color(0xffFFFFFF),
-                    borderRadius: BorderRadius.circular(7),
                   ),
                 ),
               ),
