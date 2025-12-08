@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final bottomImageWidth = size.width * 0.6;
 
     return Scaffold(
-      backgroundColor: mainColors().backgroundColor,
+      backgroundColor: AppColors.light.backgroundColor,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -91,10 +91,10 @@ class _SplashScreenState extends State<SplashScreen> {
                     fontFamily: "GreatVibes",
                     fontSize: size.width * 0.12, // Responsive text
                     fontWeight: FontWeight.w600,
-                    color: mainColors().primary,
+                    color: AppColors.light.primary,
                     shadows: [
                       Shadow(
-                        color: mainColors().primary.withOpacity(0.25),
+                        color: AppColors.light.primary.withOpacity(0.25),
                         blurRadius: 6,
                       )
                     ],

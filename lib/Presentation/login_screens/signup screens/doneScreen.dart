@@ -9,7 +9,7 @@ class Donescreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = mainColors();
+    final colors = AppColors.light;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

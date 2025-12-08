@@ -54,7 +54,7 @@ class OnBoardingItem extends StatelessWidget {
                       decoration: BoxDecoration(
                         color:
                             provider.currentindex == index
-                                ? mainColors().primary
+                                ? AppColors.light.primary
                                 : Colors.grey,
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -73,7 +73,7 @@ class OnBoardingItem extends StatelessWidget {
                       Text(
                         "Skip",
                         style: TextStyle(
-                          color: mainColors().primary,
+                          color: AppColors.light.primary,
                           fontSize: screenWidth * 0.045,
                           fontWeight: FontWeight.w600,
                         ),
@@ -137,7 +137,7 @@ class OnBoardingItem extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: mainColors().primary,
+                  backgroundColor: AppColors.light.primary,
                   minimumSize: Size(screenWidth * 0.7, screenHeight * 0.09),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -162,7 +162,7 @@ class OnBoardingItem extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: mainColors().primary,
+                      backgroundColor: AppColors.light.primary,
                       minimumSize: Size(screenWidth * 0.7, screenHeight * 0.09),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -190,7 +190,7 @@ class OnBoardingItem extends StatelessWidget {
                       minimumSize: Size(screenWidth * 0.7, screenHeight * 0.09),
                       elevation: 0,
                       backgroundColor: Colors.white,
-                      side: BorderSide(color: mainColors().primary),
+                      side: BorderSide(color: AppColors.light.primary),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -198,7 +198,7 @@ class OnBoardingItem extends StatelessWidget {
                     child: Text(
                       "Sign up",
                       style: TextStyle(
-                        color: mainColors().primary,
+                        color: AppColors.light.primary,
                         fontSize: screenWidth * 0.06,
                       ),
                     ),
