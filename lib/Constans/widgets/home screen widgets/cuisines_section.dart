@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/models/home%20models/cuisine_model.dart';
+import 'package:intershipflutter/Constans/models/home models/cuisine_model.dart';
 
 class CuisinesSection extends StatefulWidget {
   final List<CuisineModel> cuisines;
@@ -35,6 +35,8 @@ class _CuisinesSectionState extends State<CuisinesSection> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Column(
       children: [
         // Header
@@ -43,28 +45,30 @@ class _CuisinesSectionState extends State<CuisinesSection> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Cuisines',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: colors.onSurface,
                 ),
               ),
             ],
           ),
         ),
+
         const SizedBox(height: 12),
+
         // Cuisines List
         SizedBox(
-          height: 80,
+          height: 85,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 14),
             itemCount: _cuisines.length,
             itemBuilder: (context, index) {
               final cuisine = _cuisines[index];
-              return _buildCuisineItem(cuisine);
+              return _buildCuisineItem(cuisine, colors);
             },
           ),
         ),
@@ -82,20 +86,22 @@ class _CuisinesSectionState extends State<CuisinesSection> {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.transparent, width: 2),
           color: Colors.grey[100],
-          boxShadow: cuisine.isActive
-              ? [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
-                  ),
-                ]
-              : [],
+          boxShadow:
+              cuisine.isActive
+                  ? [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ]
+                  : [],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(cuisine.icon, style: const TextStyle(fontSize: 40)),
+
             Text(
               cuisine.name,
               textAlign: TextAlign.center,

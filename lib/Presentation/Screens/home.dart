@@ -17,51 +17,51 @@ class _HomePageState extends State<HomePage> {
     initialIndex: 0,
   );
 
-  /// ----- Your Screens -----
-  List<Widget> screens() => [
-    const HomeScreen(),
-    Favourite_screen(),
-    const MyOrders(),
-    const ProfileMenuScreen(),
-  ];
+  List<Widget> screens() => const [
+        HomeScreen(),
+        FavouriteScreen(),
+        MyOrders(),
+        ProfileMenuScreen(),
+      ];
 
-  /// ----- Navigation Items -----
-  List<PersistentBottomNavBarItem> navItems() => [
-    PersistentBottomNavBarItem(
-      icon: const Icon(Icons.home),
+  List<PersistentBottomNavBarItem> navItems(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
 
-      activeColorPrimary: Colors.blue,
-      inactiveColorPrimary: Colors.grey,
-    ),
-    PersistentBottomNavBarItem(
-      icon: const Icon(Icons.favorite_border),
-
-      activeColorPrimary: Colors.blue,
-      inactiveColorPrimary: Colors.grey,
-    ),
-    PersistentBottomNavBarItem(
-      icon: const Icon(Icons.download_done_outlined),
-
-      activeColorPrimary: Colors.blue,
-      inactiveColorPrimary: Colors.grey,
-    ),
-    PersistentBottomNavBarItem(
-      icon: const Icon(Icons.person),
-
-      activeColorPrimary: Colors.blue,
-      inactiveColorPrimary: Colors.grey,
-    ),
-  ];
+    return [
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.home),
+        activeColorPrimary: colors.primary,
+        inactiveColorPrimary: colors.onSurface.withOpacity(0.5),
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.favorite_border),
+        activeColorPrimary: colors.primary,
+        inactiveColorPrimary: colors.onSurface.withOpacity(0.5),
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.download_done_outlined),
+        activeColorPrimary: colors.primary,
+        inactiveColorPrimary: colors.onSurface.withOpacity(0.5),
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.person),
+        activeColorPrimary: colors.primary,
+        inactiveColorPrimary: colors.onSurface.withOpacity(0.5),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return PersistentTabView(
       context,
       controller: controller,
       screens: screens(),
-      items: navItems(),
-      backgroundColor: Colors.white,
-      navBarStyle: NavBarStyle.style8, // clean simple navbar
+      items: navItems(context),
+      backgroundColor: colors.surface, // adaptive navbar background
+      navBarStyle: NavBarStyle.style8,
     );
   }
 }

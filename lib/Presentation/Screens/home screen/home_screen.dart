@@ -1,4 +1,8 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:intershipflutter/Constans/widgets/colors.dart';
+import 'package:provider/provider.dart';
+import 'package:intershipflutter/businessLogic/Theme_Provider.dart'; // FIXED IMPORT
 import 'package:intershipflutter/Constans/widgets/home%20screen%20widgets/cuisines_section.dart';
 import 'package:intershipflutter/Constans/widgets/home%20screen%20widgets/offers_carousel.dart';
 import 'package:intershipflutter/Constans/widgets/home%20screen%20widgets/popular_restaurants.dart';
@@ -6,15 +10,11 @@ import 'package:intershipflutter/Presentation/Screens/restaurant%20detail%20scre
 import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/offer_provider.dart';
 import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
-import 'package:provider/provider.dart';
-import 'dart:math';
 
 final Random rnd = Random();
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  BuildContext get context => context;
 
   @override
   Widget build(BuildContext context) {
@@ -22,79 +22,94 @@ class HomeScreen extends StatelessWidget {
     final cuisinesProvider = context.watch<CuisineProvider>();
     final restaurants = context.watch<RestaurantProvider>().restaurants;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 200,
-            pinned: false,
-            flexibleSpace: FlexibleSpaceBar(
-              background: _buildHeader(username: 'youssef'),
-            ),
-          ),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        final currentColors =
+            themeProvider.isDark ? AppColors.dark : AppColors.light;
 
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Column(
-                children: [
-                  OffersCarousel(
-                    offers: offers,
-                    onBookNow: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder:
-                              (_) => RestaurantDetailScreen(
-                                restaurantId: restaurants[0].id,
-                              ),
-                        ),
-                      );
-                    },
+        return Scaffold(
+          backgroundColor: currentColors.backgroundColor,
+          body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                expandedHeight: 200,
+                pinned: false,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: _buildHeader(
+                    context: context,
+                    username: 'youssef',
+                    colors: currentColors,
                   ),
-
-                  const SizedBox(height: 16),
-
-                  CuisinesSection(
-                    cuisines: cuisinesProvider.cuisines,
-                    onCuisineSelected: cuisinesProvider.selectCuisine,
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  PopularRestaurants(
-                    restaurants: restaurants,
-                    onRestaurantTap: (String id) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder:
-                              (_) => RestaurantDetailScreen(restaurantId: id),
-                        ),
-                      );
-                    },
-                    onToggleFavorite: (String id) {
-                      context.read<RestaurantProvider>().toggleFavorite(id);
-                    },
-                  ),
-                ],
+                ),
               ),
-            ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Column(
+                    children: [
+                      OffersCarousel(
+                        offers: offers,
+                        onBookNow: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (_) => RestaurantDetailScreen(
+                                    restaurantId: restaurants[0].id,
+                                  ),
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      CuisinesSection(
+                        cuisines: cuisinesProvider.cuisines,
+                        onCuisineSelected: cuisinesProvider.selectCuisine,
+                      ),
+                      const SizedBox(height: 20),
+                      Column(
+                        children: [
+                          PopularRestaurants(
+                            restaurants: restaurants,
+                            onRestaurantTap: (String id) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (_) =>
+                                          RestaurantDetailScreen(restaurantId: id),
+                                ),
+                              );
+                            },
+                            onToggleFavorite: (String id) {
+                              context.read<RestaurantProvider>().toggleFavorite(id);
+                            },
+                          ),
+
+                        ],
+                      ),
+                       
+
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  /// ================================================================
-  /// FIXED HEADER — Guaranteed 0 overflow
-  /// ================================================================
-  Widget _buildHeader({required String username}) {
+  Widget _buildHeader({
+    required BuildContext context,
+    required String username,
+    required AppColorScheme colors,
+  }) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: const Color(0xFF085651),
+        color: colors.primary,
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
@@ -106,23 +121,21 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(16, 20, 16, 24),
           child: Stack(
             children: [
-              for (int i = 0; i < 4; i++)
-                /// BACKGROUND DECORATIONS
+              for (int i = 0; i < 5; i++)
                 Positioned(
                   top: rnd.nextDouble() * 120,
                   right: rnd.nextDouble() * 120,
                   child: Container(
-                    width: rnd.nextDouble() * 80 + 20,
-                    height: rnd.nextDouble() * 80 + 20,
+                    width: rnd.nextDouble() * 100 + 20,
+                    height: rnd.nextDouble() * 100 + 20,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF0D6E68),
+                      color: const Color(0x330D6E68),
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF0D6E68).withOpacity(0.2),
+                          color: colors.buttonColor.withOpacity(0.2),
                           blurRadius: 20,
                           spreadRadius: 5,
-                          offset: const Offset(0, 0),
                         ),
                       ],
                     ),
@@ -132,24 +145,21 @@ class HomeScreen extends StatelessWidget {
                 top: rnd.nextDouble() * 120,
                 left: rnd.nextDouble() * 120,
                 child: Container(
-                  width: rnd.nextDouble() * 80 + 20,
-                  height: rnd.nextDouble() * 80 + 20,
+                  width: rnd.nextDouble() * 100 + 20,
+                  height: rnd.nextDouble() * 100 + 20,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF0D6E68),
+                    color: const Color(0x330D6E68),
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF0D6E68).withOpacity(0.2),
+                        color: colors.buttonColor.withOpacity(0.2),
                         blurRadius: 20,
                         spreadRadius: 5,
-                        offset: const Offset(0, 0),
                       ),
                     ],
                   ),
                 ),
               ),
-
-              /// MAIN CONTENT
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -168,22 +178,19 @@ class HomeScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-
                             const SizedBox(height: 6),
-
-                            const Text(
+                            Text(
                               "Begin your journey to exceptional dining experiences today.",
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Colors.white70,
+                                color: Colors.white.withOpacity(0.7),
                                 height: 1.3,
                               ),
                             ),
                           ],
                         ),
                       ),
-
-                      const SizedBox(width: 18), // FIXED
+                      const SizedBox(width: 18),
                       Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
@@ -198,13 +205,11 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 22),
-
                   TextField(
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: colors.backgroundColor,
                       contentPadding: const EdgeInsets.symmetric(
                         horizontal: 16,
                       ),

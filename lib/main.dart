@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Presentation/Screens/booking%20screens/booking_screen.dart';
-import 'package:intershipflutter/Presentation/Screens/booking%20screens/confirmation_screen.dart';
-import 'package:intershipflutter/Presentation/Screens/booking%20screens/details.dart';
 import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
 import 'package:intershipflutter/Presentation/Screens/home.dart';
-import 'package:intershipflutter/Presentation/login_screens/splash%20Screen/splash_Screen.dart';
+import 'package:intershipflutter/businessLogic/Theme_Provider.dart';
 import 'package:intershipflutter/businessLogic/auth_provider.dart/auth_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provider.dart';
@@ -17,6 +14,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()), 
         ChangeNotifierProvider(create: (_) => OfferProvider()),
         ChangeNotifierProvider(create: (_) => CuisineProvider()),
         ChangeNotifierProvider(create: (_) => RestaurantProvider()),
@@ -24,7 +22,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -34,8 +32,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: themeProvider.lightTheme,
+      darkTheme: themeProvider.darkTheme,
+      themeMode: themeProvider.currentTheme,
       home: const HomePage(),
     );
   }

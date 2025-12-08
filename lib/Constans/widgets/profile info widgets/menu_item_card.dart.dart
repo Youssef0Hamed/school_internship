@@ -43,21 +43,23 @@ class _MenuItemCardState extends State<MenuItemCard>
     super.dispose();
   }
 
-  void _onTapDown(TapDownDetails details) {
-    _animationController.forward();
-  }
+  void _onTapDown(TapDownDetails details) => _animationController.forward();
 
   void _onTapUp(TapUpDetails details) {
     _animationController.reverse();
     widget.onTap();
   }
 
-  void _onTapCancel() {
-    _animationController.reverse();
-  }
+  void _onTapCancel() => _animationController.reverse();
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+    final textColor =
+        widget.isDestructive ? Colors.red[600] : theme.textTheme.bodyLarge!.color;
+    final chevronColor = widget.isDestructive ? Colors.red[400] : const Color(0xFF1B7B7A);
+
     return GestureDetector(
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
@@ -67,14 +69,13 @@ class _MenuItemCardState extends State<MenuItemCard>
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: Color(0xffF4F4F4),
-            borderRadius: BorderRadius.circular(15),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.25), // shadow color
-                blurRadius: 2, // softness
-                spreadRadius: 0.2, // how much it spreads
-                offset: Offset(2, 3), // moves shadow down
+                color: Colors.black.withOpacity(0.08),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
               ),
             ],
           ),
@@ -84,15 +85,13 @@ class _MenuItemCardState extends State<MenuItemCard>
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: widget.iconColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
+                    color: widget.iconColor.withOpacity(0.1),
                   ),
                   padding: const EdgeInsets.all(8),
                   child: Icon(
                     widget.icon,
-                    color: widget.isDestructive
-                        ? Colors.red[600]
-                        : widget.iconColor,
+                    color: textColor,
                     size: 24,
                   ),
                 ),
@@ -103,18 +102,14 @@ class _MenuItemCardState extends State<MenuItemCard>
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: widget.isDestructive
-                          ? Colors.red[600]
-                          : Colors.black87,
+                      color: textColor,
                       letterSpacing: 0.3,
                     ),
                   ),
                 ),
                 Icon(
                   Icons.chevron_right,
-                  color: widget.isDestructive
-                      ? Colors.red[400]
-                      : const Color(0xFF1B7B7A),
+                  color: chevronColor,
                   size: 24,
                 ),
               ],

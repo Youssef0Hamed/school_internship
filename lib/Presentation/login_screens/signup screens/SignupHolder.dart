@@ -27,7 +27,7 @@ class _SignupholderState extends State<Signupholder> {
     }
 
     return Scaffold(
-      backgroundColor: mainColors().backgroundColor,
+      backgroundColor: AppColors.light.backgroundColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 45, horizontal: 20),
         child: Column(
@@ -48,7 +48,7 @@ class _SignupholderState extends State<Signupholder> {
                         child: Icon(
                           Icons.arrow_back_ios,
                           size: 22,
-                          color: mainColors().primary,
+                          color: AppColors.light.primary,
                         ),
                       ),
                 Row(
@@ -60,7 +60,7 @@ class _SignupholderState extends State<Signupholder> {
                       height: 5,
                       decoration: BoxDecoration(
                         color: provider.currentindexuser == index
-                            ? mainColors().primary
+                            ? AppColors.light.primary
                             : Colors.grey.shade400,
                         borderRadius: BorderRadius.circular(20),
                       ),
