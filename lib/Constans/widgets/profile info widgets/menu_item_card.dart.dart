@@ -67,13 +67,14 @@ class _MenuItemCardState extends State<MenuItemCard>
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
+            color: Color(0xffF4F4F4),
+            borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.08),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
+                color: Colors.black.withOpacity(0.25), // shadow color
+                blurRadius: 2, // softness
+                spreadRadius: 0.2, // how much it spreads
+                offset: Offset(2, 3), // moves shadow down
               ),
             ],
           ),

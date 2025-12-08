@@ -5,11 +5,14 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.7.0 <4.0.0"
+  sdk: ">=3.5.4 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  
+  table_calendar: ^3.0.9
+  flutter_time_picker_spinner: ^2.0.0
 
   cupertino_icons: ^1.0.8
   gap: ^3.0.1

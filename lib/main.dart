@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intershipflutter/Presentation/Screens/booking%20screens/booking_screen.dart';
+import 'package:intershipflutter/Presentation/Screens/booking%20screens/confirmation_screen.dart';
+import 'package:intershipflutter/Presentation/Screens/booking%20screens/details.dart';
 import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
 import 'package:intershipflutter/Presentation/Screens/home.dart';
 import 'package:intershipflutter/Presentation/login_screens/splash%20Screen/splash_Screen.dart';

@@ -3,13 +3,14 @@ import 'package:intershipflutter/Constans/models/restaurant%20detail%20models/re
 import 'package:intershipflutter/Constans/widgets/restaurant%20detail%20tabs/about_tab.dart';
 import 'package:intershipflutter/Constans/widgets/restaurant%20detail%20tabs/menu_tab.dart';
 import 'package:intershipflutter/Constans/widgets/restaurant%20detail%20tabs/reviews_tab.dart';
+import 'package:intershipflutter/Presentation/Screens/booking%20screens/booking_screen.dart';
 import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
 import 'package:provider/provider.dart';
 
 class RestaurantDetailScreen extends StatefulWidget {
   final String restaurantId; // Pass the restaurant ID to display
   const RestaurantDetailScreen({Key? key, required this.restaurantId})
-    : super(key: key);
+      : super(key: key);
 
   @override
   State<RestaurantDetailScreen> createState() => _RestaurantDetailScreenState();
@@ -95,7 +96,6 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                     ),
                   ),
                 ],
-
                 flexibleSpace: FlexibleSpaceBar(
                   background: Stack(
                     fit: StackFit.expand,
@@ -130,10 +130,9 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                               height: 8,
                               margin: const EdgeInsets.symmetric(horizontal: 4),
                               decoration: BoxDecoration(
-                                color:
-                                    _currentImage == index
-                                        ? Colors.white
-                                        : Colors.white54,
+                                color: _currentImage == index
+                                    ? Colors.white
+                                    : Colors.white54,
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             ),
@@ -320,7 +319,14 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(16),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BookingScreen(),
+              ),
+            );
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.teal,
             padding: const EdgeInsets.symmetric(vertical: 16),

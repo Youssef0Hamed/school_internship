@@ -17,7 +17,16 @@ class FavouriteCard extends StatelessWidget {
           bottomLeft: Radius.circular(10),
           bottomRight: Radius.circular(10),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25), // shadow color
+            blurRadius: 2, // softness
+            spreadRadius: 1, // how much it spreads
+            offset: Offset(0, 3), // moves shadow down
+          ),
+        ],
       ),
+
       child: Column(
         children: [
           Stack(
@@ -27,14 +36,12 @@ class FavouriteCard extends StatelessWidget {
                 width: double.infinity,
                 child: Image.network(model.imageUrl, fit: BoxFit.cover),
               ),
-              
               Positioned(
                 top: 141,
                 left: 10,
                 child: Container(
                   width: 83,
                   height: 23,
-
                   decoration: BoxDecoration(
                     color: Color(0xffFFFFFF),
                     borderRadius: BorderRadius.circular(7),

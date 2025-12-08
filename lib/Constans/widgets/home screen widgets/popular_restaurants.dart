@@ -5,7 +5,6 @@ import 'package:intershipflutter/Presentation/Screens/restaurant%20detail%20scre
 import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
 import 'package:provider/provider.dart';
 
-
 class PopularRestaurants extends StatefulWidget {
   final List<RestaurantModel> restaurants;
   final Function(String)? onToggleFavorite;
@@ -15,7 +14,8 @@ class PopularRestaurants extends StatefulWidget {
     Key? key,
     required this.restaurants,
     this.onToggleFavorite,
-    this.onSeeAll, required Null Function(String id) onRestaurantTap,
+    this.onSeeAll,
+    required Null Function(String id) onRestaurantTap,
   }) : super(key: key);
 
   @override
@@ -60,7 +60,6 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                   color: Colors.black87,
                 ),
               ),
-              
             ],
           ),
         ),
@@ -120,8 +119,7 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
           });
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor:
-              isActive ? const Color(0xFF0D7377) : Colors.white,
+          backgroundColor: isActive ? const Color(0xFF085651) : Colors.white,
           foregroundColor: isActive ? Colors.white : const Color(0xFF0D7377),
           side: const BorderSide(color: Color(0xFF0D7377), width: 2),
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -154,14 +152,17 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
         children: [
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: Colors.white,
+              color: Color(0xffF4F4F4),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.12),
-                  blurRadius: 12,
-                  spreadRadius: 1,
-                  offset: const Offset(0, 6),
+                  color: Colors.black.withOpacity(0.25), // shadow color
+                  blurRadius: 2, // softness
+                  spreadRadius: 1, // how much it spreads
+                  offset: Offset(0, 3), // moves shadow down
                 ),
               ],
             ),
@@ -190,7 +191,7 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                         child: const Icon(Icons.broken_image),
                       ),
                     ),
-          
+
                     // FAVORITE ICON
                     Positioned(
                       top: 4,
@@ -209,26 +210,28 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                             ],
                           ),
                           child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        restaurant.isFavorite
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: Colors.red,
-                      ),
-                      onPressed: () {
-                        Provider.of<RestaurantProvider>(context, listen: false).toggleFavorite(restaurant.id);
-                      },
-                    ),
-                  ),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              icon: Icon(
+                                restaurant.isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: Colors.red,
+                              ),
+                              onPressed: () {
+                                Provider.of<RestaurantProvider>(context,
+                                        listen: false)
+                                    .toggleFavorite(restaurant.id);
+                              },
+                            ),
+                          ),
                         ),
                       ),
                     ),
-          
+
                     // RATING BADGE
                     Positioned(
                       bottom: 8,
@@ -259,14 +262,15 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                               ),
                             ),
                             const SizedBox(width: 2),
-                            const Icon(Icons.star, color: Colors.amber, size: 14),
+                            const Icon(Icons.star,
+                                color: Colors.amber, size: 14),
                           ],
                         ),
                       ),
                     ),
                   ],
                 ),
-          
+
                 // TEXT CONTENT
                 Padding(
                   padding: const EdgeInsets.all(10),
@@ -285,9 +289,9 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-          
+
                       const SizedBox(height: 4),
-          
+
                       // LOCATION
                       Row(
                         children: [
@@ -307,9 +311,9 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                           ),
                         ],
                       ),
-          
+
                       const SizedBox(height: 6),
-          
+
                       // AMENITIES
                       Row(
                         children: [

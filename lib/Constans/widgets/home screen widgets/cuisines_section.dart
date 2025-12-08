@@ -5,12 +5,10 @@ class CuisinesSection extends StatefulWidget {
   final List<CuisineModel> cuisines;
   final Function(String)? onCuisineSelected;
 
-
   const CuisinesSection({
     super.key,
     required this.cuisines,
     this.onCuisineSelected,
-
   });
 
   @override
@@ -53,7 +51,6 @@ class _CuisinesSectionState extends State<CuisinesSection> {
                   color: Colors.black87,
                 ),
               ),
-              
             ],
           ),
         ),
@@ -85,22 +82,20 @@ class _CuisinesSectionState extends State<CuisinesSection> {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.transparent, width: 2),
           color: Colors.grey[100],
-          boxShadow:
-              cuisine.isActive
-                  ? [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ]
-                  : [],
+          boxShadow: cuisine.isActive
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ]
+              : [],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(cuisine.icon, style: const TextStyle(fontSize: 40)),
-
             Text(
               cuisine.name,
               textAlign: TextAlign.center,
