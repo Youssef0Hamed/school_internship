@@ -64,7 +64,7 @@ class _Favourite_screenState extends State<Favourite_screen> {
         ),
         centerTitle: true,
       ),
-          extendBodyBehindAppBar: false,
+      extendBodyBehindAppBar: false,
       backgroundColor: Colors.white,
 
       body: SingleChildScrollView(

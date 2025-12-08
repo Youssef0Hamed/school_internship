@@ -71,8 +71,8 @@ class FavouriteCard extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        width: 52.727455139160156,
-                        height: 22.21884536743164,
+                        width: 52,
+                        height: 22,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(7),

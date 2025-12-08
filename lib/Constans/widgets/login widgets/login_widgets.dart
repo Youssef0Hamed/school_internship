@@ -14,7 +14,7 @@ Widget mainbutton(
     child: ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: mainColors().primary,
+        backgroundColor: AppColors.light.primary,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       child: Text(
