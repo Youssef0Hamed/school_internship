@@ -7,9 +7,9 @@ import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_
 import 'package:provider/provider.dart';
 
 class RestaurantDetailScreen extends StatefulWidget {
-  final String restaurantId; // Pass the restaurant ID to display
+  final String restaurantId;
   const RestaurantDetailScreen({Key? key, required this.restaurantId})
-    : super(key: key);
+      : super(key: key);
 
   @override
   State<RestaurantDetailScreen> createState() => _RestaurantDetailScreenState();
@@ -17,10 +17,8 @@ class RestaurantDetailScreen extends StatefulWidget {
 
 class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
     with SingleTickerProviderStateMixin {
-  // Put this at the top of your State class:
   late PageController _pageController;
   int _currentImage = 0;
-
   late TabController _tabController;
 
   @override
@@ -39,6 +37,9 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Scaffold(
       body: Consumer<RestaurantProvider>(
         builder: (context, provider, _) {
@@ -47,10 +48,13 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
           }
 
           if (provider.error != null) {
-            return Center(child: Text('Error: ${provider.error}'));
+            return Center(
+                child: Text(
+              'Error: ${provider.error}',
+              style: TextStyle(color: colors.error),
+            ));
           }
 
-          // Get the restaurant by ID
           final restaurant = provider.restaurants.firstWhere(
             (r) => r.id == widget.restaurantId,
             orElse: () => provider.restaurants.first,
@@ -62,45 +66,55 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
               SliverAppBar(
                 expandedHeight: 280,
                 pinned: true,
-                backgroundColor: Colors.white,
+                backgroundColor: colors.background,
                 elevation: 0,
                 leading: Container(
                   margin: const EdgeInsets.all(8),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: colors.surface,
                     shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: colors.shadow.withOpacity(0.2),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      )
+                    ],
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.black),
+                    icon: Icon(Icons.arrow_back, color: colors.onBackground),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
                 actions: [
                   Container(
                     margin: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: colors.surface,
                       shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: colors.shadow.withOpacity(0.2),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        )
+                      ],
                     ),
                     child: IconButton(
                       icon: Icon(
                         restaurant.isFavorite
                             ? Icons.favorite
                             : Icons.favorite_border,
-                        color: Colors.red,
+                        color: Colors.redAccent,
                       ),
-                      onPressed: () {
-                        provider.toggleFavorite(restaurant.id);
-                      },
+                      onPressed: () => provider.toggleFavorite(restaurant.id),
                     ),
                   ),
                 ],
-
                 flexibleSpace: FlexibleSpaceBar(
                   background: Stack(
                     fit: StackFit.expand,
                     children: [
-                      // ---------------- Carousel ----------------
                       PageView.builder(
                         controller: _pageController,
                         itemCount: restaurant.images.length,
@@ -114,8 +128,6 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                           );
                         },
                       ),
-
-                      // ---------------- Dot Indicators ----------------
                       Positioned(
                         bottom: 16,
                         left: 0,
@@ -128,12 +140,12 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                               duration: const Duration(milliseconds: 300),
                               width: _currentImage == index ? 22 : 8,
                               height: 8,
-                              margin: const EdgeInsets.symmetric(horizontal: 4),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 4),
                               decoration: BoxDecoration(
-                                color:
-                                    _currentImage == index
-                                        ? Colors.white
-                                        : Colors.white54,
+                                color: _currentImage == index
+                                    ? colors.onBackground
+                                    : colors.onBackground.withOpacity(0.5),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             ),
@@ -144,10 +156,11 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                   ),
                 ),
               ),
+
               // ---------------- Restaurant Info ----------------
               SliverToBoxAdapter(
                 child: Container(
-                  color: Colors.white,
+                  color: colors.background,
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,37 +171,30 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
+                                horizontal: 12, vertical: 6),
                             decoration: BoxDecoration(
-                              color: Colors.orange.shade100,
+                              color: colors.secondary.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
                               restaurant.discount,
                               style: TextStyle(
-                                color: Colors.orange.shade700,
+                                color: colors.secondary,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
+                                horizontal: 12, vertical: 6),
                             decoration: BoxDecoration(
-                              color: Colors.teal.shade700,
+                              color: colors.primary,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(
                               children: [
-                                const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                  size: 16,
-                                ),
+                                const Icon(Icons.star,
+                                    color: Colors.amber, size: 16),
                                 const SizedBox(width: 4),
                                 Text(
                                   '${restaurant.rating} (${restaurant.reviewCount} reviews)',
@@ -207,25 +213,23 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                       // Name
                       Text(
                         restaurant.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
+                          color: colors.onBackground,
                         ),
                       ),
                       const SizedBox(height: 12),
                       // Cuisine
                       Row(
                         children: [
-                          const Icon(
-                            Icons.restaurant,
-                            size: 16,
-                            color: Colors.grey,
-                          ),
+                          Icon(Icons.restaurant,
+                              size: 16, color: colors.onBackground.withOpacity(0.6)),
                           const SizedBox(width: 8),
                           Text(
                             restaurant.cuisine,
-                            style: const TextStyle(
-                              color: Colors.grey,
+                            style: TextStyle(
+                              color: colors.onBackground.withOpacity(0.6),
                               fontSize: 14,
                             ),
                           ),
@@ -235,16 +239,13 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                       // Address
                       Row(
                         children: [
-                          const Icon(
-                            Icons.location_on,
-                            size: 16,
-                            color: Colors.grey,
-                          ),
+                          Icon(Icons.location_on,
+                              size: 16, color: colors.onBackground.withOpacity(0.6)),
                           const SizedBox(width: 8),
                           Text(
                             restaurant.address,
-                            style: const TextStyle(
-                              color: Colors.grey,
+                            style: TextStyle(
+                              color: colors.onBackground.withOpacity(0.6),
                               fontSize: 14,
                             ),
                           ),
@@ -254,16 +255,13 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                       // Opening hours
                       Row(
                         children: [
-                          const Icon(
-                            Icons.access_time,
-                            size: 16,
-                            color: Colors.grey,
-                          ),
+                          Icon(Icons.access_time,
+                              size: 16, color: colors.onBackground.withOpacity(0.6)),
                           const SizedBox(width: 8),
                           Text(
                             restaurant.openingHours,
-                            style: const TextStyle(
-                              color: Colors.grey,
+                            style: TextStyle(
+                              color: colors.onBackground.withOpacity(0.6),
                               fontSize: 14,
                             ),
                           ),
@@ -278,14 +276,14 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
               SliverAppBar(
                 pinned: true,
                 toolbarHeight: 0,
-                backgroundColor: Colors.white,
+                backgroundColor: colors.background,
                 bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(48),
                   child: TabBar(
                     controller: _tabController,
-                    indicatorColor: Colors.teal,
-                    labelColor: Colors.teal,
-                    unselectedLabelColor: Colors.grey,
+                    indicatorColor: colors.primary,
+                    labelColor: colors.primary,
+                    unselectedLabelColor: colors.onBackground.withOpacity(0.6),
                     tabs: const [
                       Tab(text: 'Menu'),
                       Tab(text: 'About'),
@@ -322,16 +320,16 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
         child: ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.teal,
+            backgroundColor: colors.primary,
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          child: const Text(
+          child: Text(
             'Book now',
             style: TextStyle(
-              color: Colors.white,
+              color: colors.onPrimary,
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
