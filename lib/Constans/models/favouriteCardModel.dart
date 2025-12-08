@@ -12,4 +12,5 @@ class Favouritecardmodel {
     this.isFavourite = false,
     required this.discount,
   });
+
 }

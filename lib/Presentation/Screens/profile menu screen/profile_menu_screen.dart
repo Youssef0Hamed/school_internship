@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Constans/widgets/profile info widgets/profile_header.dart';
 import 'package:intershipflutter/Constans/widgets/profile%20info%20widgets/menu_item_card.dart.dart';
+import 'package:intershipflutter/Presentation/Screens/Settings_Screen.dart';
 import 'package:intershipflutter/Presentation/Screens/profile menu screen/Personal_Info_Screen.dart';
 import 'package:intershipflutter/Presentation/Screens/settings%20screen/settings_screen.dart';
 import 'package:intershipflutter/Presentation/login_screens/login screens/Login.dart';
@@ -12,15 +13,19 @@ class ProfileMenuScreen extends StatelessWidget {
 
   void _navigateToPersonalInfo(BuildContext context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const PersonalInfoScreen()),
+      MaterialPageRoute(builder: (_) => const PersonalInfoScreen()),
     );
   }
 
   void _showComingSoonSnackbar(BuildContext context, String feature) {
+    final theme = Theme.of(context);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('$feature is coming soon!'),
-        backgroundColor: const Color(0xFF1B7B7A),
+        content: Text(
+          '$feature is coming soon!',
+          style: TextStyle(color: theme.colorScheme.onPrimary),
+        ),
+        backgroundColor: theme.primaryColor,
         duration: const Duration(seconds: 2),
         behavior: SnackBarBehavior.floating,
         margin: const EdgeInsets.all(16),
@@ -30,18 +35,19 @@ class ProfileMenuScreen extends StatelessWidget {
   }
 
   void _showLogoutDialog(BuildContext context) {
+    final theme = Theme.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Logout'),
-        content: const Text('Are you sure you want to logout?'),
+        title: Text('Logout', style: TextStyle(color: theme.textTheme.titleLarge!.color)),
+        content: Text('Are you sure you want to logout?', style: TextStyle(color: theme.textTheme.bodyMedium!.color)),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text('Cancel', style: TextStyle(color: theme.primaryColor)),
           ),
           TextButton(
             onPressed: () {
@@ -53,14 +59,12 @@ class ProfileMenuScreen extends StatelessWidget {
                   duration: const Duration(seconds: 2),
                   behavior: SnackBarBehavior.floating,
                   margin: const EdgeInsets.all(16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
               );
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                MaterialPageRoute(builder: (_) => const LoginScreen()),
               );
             },
             child: const Text(
@@ -75,8 +79,9 @@ class ProfileMenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: Consumer<UserProvider>(
         builder: (context, userProvider, child) {
           return SingleChildScrollView(
@@ -92,29 +97,26 @@ class ProfileMenuScreen extends StatelessWidget {
                 MenuItemCard(
                   title: 'Personal information',
                   icon: Icons.person,
-                  iconColor: const Color(0xFF1B7B7A),
+                  iconColor: theme.colorScheme.primary,
                   onTap: () => _navigateToPersonalInfo(context),
                 ),
                 MenuItemCard(
                   title: 'Payments',
                   icon: Icons.credit_card,
-                  iconColor: const Color(0xFF1B7B7A),
+                  iconColor: theme.colorScheme.primary,
                   onTap: () => _showComingSoonSnackbar(context, 'Payments'),
                 ),
                 MenuItemCard(
                   title: 'My reviews',
                   icon: Icons.star,
-                  iconColor: const Color(0xFF1B7B7A),
+                  iconColor: theme.colorScheme.primary,
                   onTap: () => _showComingSoonSnackbar(context, 'My reviews'),
                 ),
                 MenuItemCard(
                   title: 'Awards and promocodes',
                   icon: Icons.card_giftcard,
-                  iconColor: const Color(0xFF1B7B7A),
-                  onTap: () => _showComingSoonSnackbar(
-                    context,
-                    'Awards and promocodes',
-                  ),
+                  iconColor: theme.colorScheme.primary,
+                  onTap: () => _showComingSoonSnackbar(context, 'Awards and promocodes'),
                 ),
                 MenuItemCard(
                   title: 'Settings',
@@ -131,7 +133,7 @@ class ProfileMenuScreen extends StatelessWidget {
                 MenuItemCard(
                   title: 'Support',
                   icon: Icons.help_outline,
-                  iconColor: const Color(0xFF1B7B7A),
+                  iconColor: theme.colorScheme.primary,
                   onTap: () => _showComingSoonSnackbar(context, 'Support'),
                 ),
                 MenuItemCard(

@@ -5,7 +5,6 @@ import 'package:intershipflutter/Presentation/Screens/restaurant%20detail%20scre
 import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
 import 'package:provider/provider.dart';
 
-
 class PopularRestaurants extends StatefulWidget {
   final List<RestaurantModel> restaurants;
   final Function(String)? onToggleFavorite;
@@ -15,7 +14,8 @@ class PopularRestaurants extends StatefulWidget {
     Key? key,
     required this.restaurants,
     this.onToggleFavorite,
-    this.onSeeAll, required Null Function(String id) onRestaurantTap,
+    this.onSeeAll,
+    required Null Function(String id) onRestaurantTap,
   }) : super(key: key);
 
   @override
@@ -44,6 +44,9 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Column(
       children: [
         // HEADER
@@ -52,15 +55,14 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Popular restaurants',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: colors.onBackground,
                 ),
               ),
-              
             ],
           ),
         ),
@@ -74,9 +76,9 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12),
             children: [
-              _buildFilterButton('great-offers', 'Great offers'),
-              _buildFilterButton('newest', 'Newest'),
-              _buildFilterButton('rating', 'Rating 4.5+'),
+              _buildFilterButton('great-offers', 'Great offers', colors, theme),
+              _buildFilterButton('newest', 'Newest', colors, theme),
+              _buildFilterButton('rating', 'Rating 4.5+', colors, theme),
             ],
           ),
         ),
@@ -100,7 +102,7 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
             itemCount: _restaurants.length,
             itemBuilder: (context, index) {
               final restaurant = _restaurants[index];
-              return _buildRestaurantCard(restaurant);
+              return _buildRestaurantCard(restaurant, colors, theme);
             },
           ),
         ),
@@ -109,7 +111,12 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
   }
 
   // FILTER BUTTON BUILDER
-  Widget _buildFilterButton(String filterId, String label) {
+  Widget _buildFilterButton(
+    String filterId,
+    String label,
+    ColorScheme colors,
+    dynamic theme,
+  ) {
     final isActive = _activeFilter == filterId;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -120,10 +127,9 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
           });
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor:
-              isActive ? const Color(0xFF0D7377) : Colors.white,
-          foregroundColor: isActive ? Colors.white : const Color(0xFF0D7377),
-          side: const BorderSide(color: Color(0xFF0D7377), width: 2),
+          backgroundColor: isActive ? colors.primary : colors.surface,
+          foregroundColor: isActive ? colors.onPrimary : colors.primary,
+          side: BorderSide(color: colors.primary, width: 2),
           padding: const EdgeInsets.symmetric(horizontal: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -131,22 +137,32 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
         ),
         child: Text(
           label,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 12,
+            color:
+                theme.brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+            // color: isActive ? Colors.white : colors.primary,
+          ),
         ),
       ),
     );
   }
 
   // RESTAURANT CARD
-  Widget _buildRestaurantCard(RestaurantModel restaurant) {
+  Widget _buildRestaurantCard(
+    RestaurantModel restaurant,
+    ColorScheme colors,
+    ThemeData theme,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => RestaurantDetailScreen(
-              restaurantId: restaurant.id,
-            ),
+            builder: (_) => RestaurantDetailScreen(restaurantId: restaurant.id),
           ),
         );
       },
@@ -154,14 +170,17 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
         children: [
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: Colors.white,
+              color: colors.surface,
+              borderRadius: const BorderRadius.all(Radius.circular(12)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.12),
-                  blurRadius: 12,
+                  color:
+                      theme.brightness == Brightness.dark
+                          ? Colors.white.withOpacity(0.3)
+                          : Colors.black.withOpacity(0.25),
+                  blurRadius: 4,
                   spreadRadius: 1,
-                  offset: const Offset(0, 6),
+                  offset: const Offset(0, 2),
                 ),
               ],
             ),
@@ -173,24 +192,38 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                 // IMAGE AREA
                 Stack(
                   children: [
-                    CachedNetworkImage(
-                      imageUrl: restaurant.images[0],
-                      height: 120,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => Container(
-                        color: Colors.grey[200],
-                        child: const Center(
-                          child: CircularProgressIndicator(),
-                        ),
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12),
                       ),
-                      errorWidget: (context, url, error) => Container(
+                      child: CachedNetworkImage(
+                        imageUrl: restaurant.images[0],
                         height: 120,
-                        color: Colors.grey[300],
-                        child: const Icon(Icons.broken_image),
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        placeholder:
+                            (context, url) => Container(
+                              color:
+                                  theme.brightness == Brightness.dark
+                                      ? Colors.grey[800]
+                                      : Colors.grey[200],
+                              child: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                        errorWidget:
+                            (context, url, error) => Container(
+                              height: 120,
+                              color:
+                                  theme.brightness == Brightness.dark
+                                      ? Colors.grey[700]
+                                      : Colors.grey[300],
+                              child: const Icon(Icons.broken_image),
+                            ),
                       ),
                     ),
-          
+
                     // FAVORITE ICON
                     Positioned(
                       top: 4,
@@ -199,47 +232,44 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                         onTap: () => _toggleFavorite(restaurant.id),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: colors.surface,
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
+                                color: Colors.black.withOpacity(0.2),
                                 blurRadius: 4,
                               ),
                             ],
                           ),
-                          child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        restaurant.isFavorite
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: Colors.red,
-                      ),
-                      onPressed: () {
-                        Provider.of<RestaurantProvider>(context, listen: false).toggleFavorite(restaurant.id);
-                      },
-                    ),
-                  ),
+                          child: IconButton(
+                            icon: Icon(
+                              restaurant.isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              Provider.of<RestaurantProvider>(
+                                context,
+                                listen: false,
+                              ).toggleFavorite(restaurant.id);
+                            },
+                          ),
                         ),
                       ),
                     ),
-          
+
                     // RATING BADGE
                     Positioned(
                       bottom: 8,
                       right: 8,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: colors.surface,
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withOpacity(0.2),
                               blurRadius: 4,
                             ),
                           ],
@@ -252,21 +282,25 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                           children: [
                             Text(
                               restaurant.rating.toString(),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
-                                color: Colors.black87,
+                                color: colors.onSurface,
                               ),
                             ),
                             const SizedBox(width: 2),
-                            const Icon(Icons.star, color: Colors.amber, size: 14),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              size: 14,
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ],
                 ),
-          
+
                 // TEXT CONTENT
                 Padding(
                   padding: const EdgeInsets.all(10),
@@ -277,29 +311,32 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                       // NAME
                       Text(
                         restaurant.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                          color: colors.onSurface,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-          
+
                       const SizedBox(height: 4),
-          
+
                       // LOCATION
                       Row(
                         children: [
-                          const Icon(Icons.location_on,
-                              size: 12, color: Colors.grey),
+                          Icon(
+                            Icons.location_on,
+                            size: 12,
+                            color: colors.onSurface.withOpacity(0.6),
+                          ),
                           const SizedBox(width: 4),
                           Expanded(
                             child: Text(
                               restaurant.location,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 10,
-                                color: Colors.grey,
+                                color: colors.onSurface.withOpacity(0.6),
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -307,9 +344,9 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                           ),
                         ],
                       ),
-          
+
                       const SizedBox(height: 6),
-          
+
                       // AMENITIES
                       Row(
                         children: [
@@ -321,14 +358,20 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                             return Expanded(
                               child: Row(
                                 children: [
-                                  Icon(icon, size: 10, color: Colors.grey),
+                                  Icon(
+                                    icon,
+                                    size: 10,
+                                    color: colors.onSurface.withOpacity(0.6),
+                                  ),
                                   const SizedBox(width: 2),
                                   Expanded(
                                     child: Text(
                                       amenity,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 9,
-                                        color: Colors.grey,
+                                        color: colors.onSurface.withOpacity(
+                                          0.6,
+                                        ),
                                       ),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
@@ -337,7 +380,7 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                                 ],
                               ),
                             );
-                          })
+                          }),
                         ],
                       ),
                     ],

@@ -21,6 +21,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()), 
         ChangeNotifierProvider(create: (_) => OfferProvider()),
         ChangeNotifierProvider(create: (_) => CuisineProvider()),
         ChangeNotifierProvider(create: (_) => RestaurantProvider()),

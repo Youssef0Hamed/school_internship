@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Constans/models/home%20models/offer_model.dart';
+import 'package:provider/provider.dart';
+import 'package:intershipflutter/businessLogic/Theme_Provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OffersCarousel extends StatefulWidget {
@@ -24,33 +26,24 @@ class OffersCarouselState extends State<OffersCarousel> {
   void initState() {
     super.initState();
     _pageController = PageController();
-
-    // Start auto scroll after first frame
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _startAutoScroll();
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => _startAutoScroll());
   }
 
-  // Auto-scroll every 3 seconds
   void _startAutoScroll() {
     Future.doWhile(() async {
       await Future.delayed(const Duration(seconds: 3));
-
       if (!mounted) return false;
 
-      int nextPage = _currentIndex + 1;
-
-      if (nextPage >= widget.offers.length) {
-        nextPage = 0; // Loop back to first page
-      }
+      int next = _currentIndex + 1;
+      if (next >= widget.offers.length) next = 0;
 
       _pageController.animateToPage(
-        nextPage,
+        next,
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
 
-      return true; // Continue
+      return true;
     });
   }
 
@@ -62,156 +55,149 @@ class OffersCarouselState extends State<OffersCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Carousel
-        SizedBox(
-          height: 170,
-          child: PageView.builder(
-            controller: _pageController,
-            onPageChanged: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            itemCount: widget.offers.length,
-            itemBuilder: (context, index) {
-              final offer = widget.offers[index];
-              return _buildOfferCard(offer);
-            },
-          ),
-        ),
-        const SizedBox(height: 12),
-        // Indicator
-        SmoothPageIndicator(
-          controller: _pageController,
-          count: widget.offers.length,
-          effect: const ExpandingDotsEffect(
-            dotColor: Colors.grey,
-            activeDotColor: Color(0xFF0D7377),
-            dotHeight: 8,
-            dotWidth: 8,
-            spacing: 8,
-          ),
-        ),
-      ],
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        final theme = Theme.of(context);
+        final colors = theme.colorScheme;
+
+        return Column(
+          children: [
+            SizedBox(
+              height: 170,
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: widget.offers.length,
+                onPageChanged: (i) =>
+                    setState(() => _currentIndex = i),
+                itemBuilder: (_, i) =>
+                    _buildOfferCard(widget.offers[i], colors),
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            /// Indicator
+            SmoothPageIndicator(
+              controller: _pageController,
+              count: widget.offers.length,
+              effect: ExpandingDotsEffect(
+                dotColor: colors.onSurface.withOpacity(0.3),
+                activeDotColor: colors.primary,
+                dotHeight: 8,
+                dotWidth: 8,
+                spacing: 8,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
-  Widget _buildOfferCard(OfferModel offer) {
+  Widget _buildOfferCard(OfferModel offer, ColorScheme colors) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
+        color: colors.surface,
         border: Border.all(
-          color: const Color(0xFF0D7377),
+          color: colors.primary,
           width: 2,
         ),
-        color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 6,
+            color: colors.primary.withOpacity(0.2),
+            blurRadius: 8,
             offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Stack(
         children: [
-          // Decorative circular image
           Positioned(
             right: -30,
             top: -20,
             child: Container(
               width: 180,
               height: 220,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                image: const DecorationImage(
+                image: DecorationImage(
                   image: AssetImage('assets/offers.jpg'),
                   fit: BoxFit.cover,
                 ),
-                // Optional overlay for soft effect
-                color: Colors.black.withOpacity(0.1),
               ),
             ),
           ),
-          // Content
+
           Padding(
             padding: const EdgeInsets.all(14),
             child: Row(
               children: [
                 Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                    mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
                     children: [
-                      // Title and subtitle
+                      /// TITLE & SUBTITLE
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
                         children: [
                           Text(
                             offer.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF0D7377),
+                              color: colors.onSurface,
                             ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             offer.subtitle,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black87,
+                              color: colors.onSurface,
                             ),
                           ),
                         ],
                       ),
-                      // Discount and button
+
+                      /// DISCOUNT + BUTTON
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
                         children: [
                           Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 "UP TO ",
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: Colors.black87,
+                                  color: colors.onSurface,
                                 ),
                               ),
                               Text(
                                 "${offer.discount}%",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 35,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFFD4A574),
+                                  color: const Color(0xFFC9A66B), // highlight
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 2),
+                          const SizedBox(height: 4),
                           ElevatedButton(
                             onPressed: widget.onBookNow,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF0D7377),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 24,
-                                vertical: 10,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
                             child: Text(
                               offer.buttonText,
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
+                                color: colors.onSurface,
                               ),
                             ),
                           ),
@@ -219,10 +205,10 @@ class OffersCarouselState extends State<OffersCarousel> {
                       ),
                     ],
                   ),
-                ),
+                )
               ],
             ),
-          ),
+          )
         ],
       ),
     );

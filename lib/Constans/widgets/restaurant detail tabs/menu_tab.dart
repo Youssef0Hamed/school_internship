@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Constans/models/restaurant%20detail%20models/menu_item_model.dart';
 
-
 class MenuTab extends StatelessWidget {
   final List<MenuItem> menuItems;
 
@@ -12,6 +11,9 @@ class MenuTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -19,9 +21,9 @@ class MenuTab extends StatelessWidget {
         children: [
           Text(
             'Menu (${menuItems.length})',
-            style: const TextStyle(
-              fontSize: 18,
+            style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
+              color: colors.onBackground,
             ),
           ),
           const SizedBox(height: 16),
@@ -31,7 +33,7 @@ class MenuTab extends StatelessWidget {
             itemCount: menuItems.length,
             itemBuilder: (context, index) {
               final item = menuItems[index];
-              return _buildMenuItemCard(item);
+              return _buildMenuItemCard(context, item);
             },
           ),
         ],
@@ -39,16 +41,25 @@ class MenuTab extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItemCard(MenuItem item) {
+  Widget _buildMenuItemCard(BuildContext context, MenuItem item) {
+    final colors = Theme.of(context).colorScheme;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
+        color: colors.surface,
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: Colors.grey.shade200,
+          color: colors.outline, // adaptive border color
           width: 1,
         ),
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: colors.shadow.withOpacity(0.05),
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -74,31 +85,29 @@ class MenuTab extends StatelessWidget {
                 children: [
                   Text(
                     item.name,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: colors.onSurface,
+                        ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
                   Text(
                     item.description,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                    ),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: colors.onSurface.withOpacity(0.7),
+                        ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     '\$${item.price.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.teal,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: colors.primary,
+                        ),
                   ),
                 ],
               ),
@@ -109,5 +118,3 @@ class MenuTab extends StatelessWidget {
     );
   }
 }
-
-
