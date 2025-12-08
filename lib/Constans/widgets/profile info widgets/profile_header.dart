@@ -18,16 +18,16 @@ class ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            const Color(0xFF1B7B7A),
-            const Color(0xFF0D5554),
+            Color(0xFF1B7B7A),
+            Color(0xFF0D5554),
           ],
         ),
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(32),
           bottomRight: Radius.circular(32),
         ),
@@ -35,6 +35,8 @@ class ProfileHeader extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 24),
+
+          /// ---- Profile Picture + Edit Button ----
           Stack(
             alignment: Alignment.bottomRight,
             children: [
@@ -57,15 +59,16 @@ class ProfileHeader extends StatelessWidget {
                   radius: 55,
                   backgroundColor: Colors.grey[300],
                   backgroundImage: NetworkImage(profileImageUrl),
-                  onBackgroundImageError: (exception, stackTrace) {
-                    // Fallback if image fails to load
-                  },
+                  onBackgroundImageError: (exception, stackTrace) {},
                 ),
               ),
+
+              /// ---- Edit button ----
               if (showEditButton)
                 GestureDetector(
                   onTap: onEditPressed,
                   child: Container(
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: const Color(0xFF1B7B7A),
@@ -81,7 +84,6 @@ class ProfileHeader extends StatelessWidget {
                         ),
                       ],
                     ),
-                    padding: const EdgeInsets.all(8),
                     child: const Icon(
                       Icons.edit,
                       color: Colors.white,
@@ -91,7 +93,10 @@ class ProfileHeader extends StatelessWidget {
                 ),
             ],
           ),
+
           const SizedBox(height: 20),
+
+          /// ---- User Name ----
           Text(
             userName,
             style: const TextStyle(
@@ -101,6 +106,7 @@ class ProfileHeader extends StatelessWidget {
               letterSpacing: 0.5,
             ),
           ),
+
           const SizedBox(height: 20),
         ],
       ),

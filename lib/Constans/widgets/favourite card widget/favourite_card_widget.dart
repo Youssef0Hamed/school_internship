@@ -14,23 +14,36 @@ class FavouriteCard extends StatelessWidget {
     return Container(
       height: 264,
       decoration: BoxDecoration(
-        color: Color(0xffF4F4F4),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(10),
-          bottomRight: Radius.circular(10),
-        ),
+        borderRadius: BorderRadius.circular(16),
+        color: colors.surface,
+        boxShadow: [
+          BoxShadow(
+                  color:
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white.withOpacity(0.3)
+                          : Colors.black.withOpacity(0.25),
+                  blurRadius: 4,
+                  spreadRadius: 1,
+                  offset: const Offset(0, 2),
+                ),
+        ],
+        
       ),
-
       child: Column(
         children: [
           Stack(
             children: [
-              Container(
-                height: 163,
-                width: double.infinity,
-                child: Image.network(model.imageUrl, fit: BoxFit.cover),
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                ),
+                child: SizedBox(
+                  height: 163,
+                  width: double.infinity,
+                  child: Image.network(model.imageUrl, fit: BoxFit.cover),
+                ),
               ),
-              
               Positioned(
                 top: 141,
                 left: 10,
@@ -73,7 +86,7 @@ class FavouriteCard extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        width: 53,
+                        width: 52,
                         height: 22,
                         decoration: BoxDecoration(
                           color: colors.surface,

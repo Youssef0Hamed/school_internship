@@ -127,10 +127,9 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
           });
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor:
-              isActive ? const Color(0xFF0D7377) : Colors.white,
-          foregroundColor: isActive ? Colors.white : const Color(0xFF0D7377),
-          side: const BorderSide(color: Color(0xFF0D7377), width: 2),
+          backgroundColor: isActive ? colors.primary : colors.surface,
+          foregroundColor: isActive ? colors.onPrimary : colors.primary,
+          side: BorderSide(color: colors.primary, width: 2),
           padding: const EdgeInsets.symmetric(horizontal: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -171,14 +170,17 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
         children: [
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: Colors.white,
+              color: colors.surface,
+              borderRadius: const BorderRadius.all(Radius.circular(12)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.12),
-                  blurRadius: 12,
+                  color:
+                      theme.brightness == Brightness.dark
+                          ? Colors.white.withOpacity(0.3)
+                          : Colors.black.withOpacity(0.25),
+                  blurRadius: 4,
                   spreadRadius: 1,
-                  offset: const Offset(0, 6),
+                  offset: const Offset(0, 2),
                 ),
               ],
             ),
@@ -239,23 +241,20 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                               ),
                             ],
                           ),
-                          child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        restaurant.isFavorite
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: Colors.red,
-                      ),
-                      onPressed: () {
-                        Provider.of<RestaurantProvider>(context, listen: false).toggleFavorite(restaurant.id);
-                      },
-                    ),
-                  ),
+                          child: IconButton(
+                            icon: Icon(
+                              restaurant.isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              Provider.of<RestaurantProvider>(
+                                context,
+                                listen: false,
+                              ).toggleFavorite(restaurant.id);
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -290,7 +289,11 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                               ),
                             ),
                             const SizedBox(width: 2),
-                            const Icon(Icons.star, color: Colors.amber, size: 14),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              size: 14,
+                            ),
                           ],
                         ),
                       ),

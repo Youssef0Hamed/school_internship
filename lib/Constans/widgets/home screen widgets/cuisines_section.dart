@@ -75,45 +75,54 @@ class _CuisinesSectionState extends State<CuisinesSection> {
       ],
     );
   }
-
-  Widget _buildCuisineItem(CuisineModel cuisine) {
-    return GestureDetector(
-      onTap: () => _selectCuisine(cuisine.id),
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4),
-        width: 80,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.transparent, width: 2),
-          color: Colors.grey[100],
-          boxShadow:
-              cuisine.isActive
-                  ? [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ]
-                  : [],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(cuisine.icon, style: const TextStyle(fontSize: 40)),
-
-            Text(
-              cuisine.name,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: Colors.grey[800],
-              ),
-            ),
-          ],
-        ),
+Widget _buildCuisineItem(CuisineModel cuisine, ColorScheme colors) {
+  return GestureDetector(
+    onTap: () => _selectCuisine(cuisine.id),
+    child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      width: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: cuisine.isActive 
+            ? colors.primary.withOpacity(0.2) // Active background color
+            : Colors.grey.withOpacity(0.2),   // Inactive background color
+        border: cuisine.isActive
+            ? Border.all(
+                color: colors.primary,
+                width: 2,
+              )
+            : null, // No border when inactive
+        boxShadow: cuisine.isActive
+            ? [
+                BoxShadow(
+                  color: colors.primary.withOpacity(0.25),
+                  blurRadius: 6,
+                  offset: const Offset(0, 3),
+                ),
+              ]
+            : [],
       ),
-    );
-  }
-}
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            cuisine.icon,
+            style: TextStyle(
+              fontSize: 40,
+              color: colors.onSurface,
+            ),
+          ),
+          Text(
+            cuisine.name,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: colors.onSurface.withOpacity(0.8),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}}
