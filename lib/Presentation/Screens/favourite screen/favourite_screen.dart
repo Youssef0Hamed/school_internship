@@ -72,7 +72,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         centerTitle: true,
         iconTheme: IconThemeData(color: colors.text),
       ),
-      backgroundColor: colors.backgroundColor,
+      extendBodyBehindAppBar: false,
+      backgroundColor: Colors.white,
+
       body: SingleChildScrollView(
         child: Column(
           children: [
