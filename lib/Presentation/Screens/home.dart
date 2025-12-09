@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> screens() => const [
         HomeScreen(),
         FavouriteScreen(),
-        MyOrders(),
+        MyOrdersScreen(),
         ProfileMenuScreen(),
       ];
 
