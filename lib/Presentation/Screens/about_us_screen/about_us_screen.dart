@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/businessLogic/theme%20provider/theme_provider.dart';
-import 'package:provider/provider.dart';
 
 class AboutUsScreen extends StatelessWidget {
   const AboutUsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
     final colors = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -37,36 +34,36 @@ class AboutUsScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 30),
 
-              // Logo + App Name
-              Center(
-                child: Row(
-                  children: [
-                    Container(
-                      height: 100,
-                      width: 100,
-                      child: Image.asset(
-                        "assets/logo.png",
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Icon(Icons.restaurant, size: 80),
-                      ),
+              /// Logo + App Name
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 80,
+                    width: 80,
+                    child: Image.asset(
+                      "assets/logo2.png",
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.restaurant, size: 80),
                     ),
-                    const SizedBox(width: 20),
-                    Text(
-                      "La Reserva",
-                      style: TextStyle(
-                        fontSize: 45,
-                        fontWeight: FontWeight.w500,
-                        color: colors.primary,
-                        fontFamily: "GreatVibes",
-                      ),
+                  ),
+                  const SizedBox(width: 20),
+                  Text(
+                    "La Reserva",
+                    style: TextStyle(
+                      fontSize: 45,
+                      fontWeight: FontWeight.w500,
+                      color: colors.primary,
+                      fontFamily: "GreatVibes",
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
 
               const SizedBox(height: 40),
 
-              // Description
+              /// Description
               Text(
                 "Description",
                 style: TextStyle(
@@ -77,7 +74,8 @@ class AboutUsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                "“La Reserva is a smart restaurant reservation app that helps you find, book, and manage your dining experiences easily and quickly.”",
+                "“La Reserva is a smart restaurant reservation app that helps you find, "
+                "book, and manage your dining experiences easily and quickly.”",
                 style: TextStyle(
                   fontSize: 14,
                   color: colors.onBackground,
@@ -87,7 +85,7 @@ class AboutUsScreen extends StatelessWidget {
 
               const SizedBox(height: 30),
 
-              // Legal & Support
+              /// Legal & Support
               Text(
                 "Legal & Support",
                 style: TextStyle(
@@ -97,35 +95,53 @@ class AboutUsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              Text("Contact Support", style: TextStyle(fontSize: 14, color: colors.primary)),
+
+              Text("Contact Support",
+                  style: TextStyle(fontSize: 14, color: colors.primary)),
               const SizedBox(height: 7),
-              Text("Privacy Policy", style: TextStyle(fontSize: 14, color: colors.primary)),
+
+              Text("Privacy Policy",
+                  style: TextStyle(fontSize: 14, color: colors.primary)),
               const SizedBox(height: 7),
-              Text("Terms of Service", style: TextStyle(fontSize: 14, color: colors.primary)),
+
+              Text("Terms of Service",
+                  style: TextStyle(fontSize: 14, color: colors.primary)),
               const SizedBox(height: 7),
-              Text("License Information", style: TextStyle(fontSize: 14, color: colors.primary)),
+
+              Text("License Information",
+                  style: TextStyle(fontSize: 14, color: colors.primary)),
               const SizedBox(height: 12),
 
               const Spacer(),
 
-              // Footer
+              /// Footer
               Center(
                 child: Text(
                   "Special thanks to our team and early testers.",
-                  style: TextStyle(fontSize: 12, color: colors.onBackground),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: colors.onBackground,
+                  ),
                 ),
               ),
               const SizedBox(height: 6),
+
               Center(
                 child: Text(
                   "© 2025 All rights reserved.",
-                  style: TextStyle(fontSize: 12, color: colors.onBackground),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: colors.onBackground,
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
 
-              // Social Icons placeholder
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: []),
+              /// Social Icons Placeholder
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [],
+              ),
 
               const SizedBox(height: 25),
             ],

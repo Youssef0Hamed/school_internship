@@ -12,6 +12,7 @@ class CustomTextField extends StatefulWidget {
   final Widget? suffixWidget;
   final VoidCallback? onSuffixTap;
   final ValueChanged<String>? onChanged;
+  final bool enabled;
 
   const CustomTextField({
     Key? key,
@@ -25,7 +26,8 @@ class CustomTextField extends StatefulWidget {
     this.minLines = 1,
     this.suffixWidget,
     this.onSuffixTap,
-    this.onChanged, required bool enabled,
+    this.onChanged,
+    required this.enabled,
   }) : super(key: key);
 
   @override
@@ -58,39 +60,42 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        /// LABEL
         Text(
           widget.label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            color: Colors.black87,
+            color: colors.onBackground,  // 🔥 Theme aware
             letterSpacing: 0.3,
           ),
         ),
+
         const SizedBox(height: 8),
+
+        /// TEXT FIELD CONTAINER (SHADOW)
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            boxShadow: _isFocused
-                ? [
-                    BoxShadow(
-                      color: const Color(0xFF1B7B7A).withOpacity(0.2),
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    ),
-                  ]
-                : [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+            boxShadow: [
+              BoxShadow(
+                color: _isFocused
+                    ? colors.primary.withOpacity(0.2)
+                    : colors.shadow.withOpacity(0.05),
+                blurRadius: _isFocused ? 12 : 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
+
+          /// TEXTFIELD
           child: TextFormField(
+            enabled: widget.enabled,
             controller: widget.controller,
             focusNode: _focusNode,
             keyboardType: widget.keyboardType,
@@ -99,41 +104,50 @@ class _CustomTextFieldState extends State<CustomTextField> {
             minLines: widget.minLines,
             onChanged: widget.onChanged,
             validator: widget.validator,
+
             decoration: InputDecoration(
               hintText: widget.hintText,
+
+              /// HINT TEXT COLOR
               hintStyle: TextStyle(
-                color: Colors.grey[400],
+                color: colors.onSurface.withOpacity(0.5),
                 fontSize: 14,
               ),
+
               filled: true,
-              fillColor: Colors.white,
+              fillColor: colors.surface, // 🔥 Theme-aware background
+
+              /// BORDERS
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(
                   color: _isFocused
-                      ? const Color(0xFF1B7B7A)
-                      : Colors.grey[300]!,
+                      ? colors.primary
+                      : colors.outline.withOpacity(0.4),
                   width: _isFocused ? 2 : 1,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(
-                  color: Colors.grey[300]!,
+                  color: colors.outline.withOpacity(0.3),
                   width: 1,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                  color: Color(0xFF1B7B7A),
+                borderSide: BorderSide(
+                  color: colors.primary,
                   width: 2,
                 ),
               ),
+
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 14,
               ),
+
+              /// SUFFIX ICON (OPTIONAL)
               suffixIcon: widget.suffixWidget != null
                   ? GestureDetector(
                       onTap: widget.onSuffixTap,
