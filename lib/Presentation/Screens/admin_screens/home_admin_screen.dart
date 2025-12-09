@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intershipflutter/Constans/widgets/colors.dart';
 import 'package:intershipflutter/Constans/widgets/favourite card widget/reservation_item.dart';
 import 'package:intershipflutter/Constans/widgets/my orders widgets/my_orders_widgets.dart';
+import 'package:intershipflutter/Presentation/Screens/admin_screens/admin_setting_screen.dart';
 import 'package:intershipflutter/Presentation/Screens/admin_screens/creat_rest_screen.dart';
 import 'package:intershipflutter/Presentation/Screens/admin_screens/edit_screen.dart';
+import 'package:intershipflutter/Presentation/Screens/settings%20screen/settings_screen.dart';
 import 'package:intershipflutter/businessLogic/Theme_Provider.dart';
 import 'package:provider/provider.dart';
 
@@ -29,8 +31,6 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
 
         return Scaffold(
           backgroundColor: currentColors.backgroundColor,
-
-          // 👇 زر + عائم
           floatingActionButton: FloatingActionButton(
             backgroundColor: currentColors.primary,
             onPressed: () {
@@ -44,14 +44,30 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
             child: const Icon(Icons.add, size: 30, color: Colors.white),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-
           body: CustomScrollView(
             slivers: [
-              // --------------------- HEADER ----------------------
               SliverAppBar(
                 expandedHeight: 200,
                 pinned: true,
                 backgroundColor: currentColors.primary,
+                actions: [
+                  IconButton(
+                    splashRadius: 22,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => AdminSettingsScreen(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.settings_rounded,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                  ),
+                ],
                 flexibleSpace: FlexibleSpaceBar(
                   background: _buildHeader(
                     context: context,
@@ -60,14 +76,11 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
                   ),
                 ),
               ),
-
-              // --------------------- CONTENT ----------------------
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
-                      // ---------------- Tabs ----------------
                       Row(
                         children: [
                           Expanded(
@@ -124,10 +137,7 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
                           ),
                         ],
                       ),
-
                       const SizedBox(height: 20),
-
-                      // ================ Restaurants Tab ================
                       if (selectedTab == 0)
                         Column(
                           children: [
@@ -136,50 +146,44 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
                               reviewText: "Delete",
                               onRebook: () {
                                 Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const EditRestaurantScreen(),
-                                  ),
-                                );
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditRestaurantScreen(),
+                                    ));
                               },
                               onReview: () {},
                             ),
-                            const SizedBox(height: 18),
+                            SizedBox(height: 18),
                             MyOrdersWidgets(
                               rebookText: "Edit",
                               reviewText: "Delete",
                               onRebook: () {
                                 Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const EditRestaurantScreen(),
-                                  ),
-                                );
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditRestaurantScreen(),
+                                    ));
                               },
                               onReview: () {},
                             ),
-                            const SizedBox(height: 18),
+                            SizedBox(height: 18),
                             MyOrdersWidgets(
                               rebookText: "Edit",
                               reviewText: "Delete",
                               onRebook: () {
                                 Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const EditRestaurantScreen(),
-                                  ),
-                                );
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditRestaurantScreen(),
+                                    ));
                               },
                               onReview: () {},
                             ),
-                            const SizedBox(height: 18),
                           ],
                         ),
-
-                      // ================ Reservations Tab ================
                       if (selectedTab == 1)
                         ListView(
                           shrinkWrap: true,
@@ -214,9 +218,6 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
     );
   }
 
-  // ----------------------------------------------------------------
-  // Header Section
-  // ----------------------------------------------------------------
   Widget _buildHeader({
     required BuildContext context,
     required String username,

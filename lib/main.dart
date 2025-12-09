@@ -12,6 +12,7 @@ import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_
 import 'package:intershipflutter/businessLogic/user%20provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
+
 //
 void main() {
   runApp(
