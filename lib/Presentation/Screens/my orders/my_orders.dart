@@ -49,8 +49,6 @@ class MyOrdersScreen extends StatelessWidget {
                       onRebook: () {},
                       onReview: () {},
                     ), // Ensure this widget adapts to dark mode too
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: const MyOrdersWidgets(),
                   );
                 },
               ),
