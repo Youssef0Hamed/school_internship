@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
-import 'package:intershipflutter/Presentation/Screens/home.dart';
 
-class confirmation extends StatelessWidget {
-  const confirmation({super.key});
+class ConfirmationScreen extends StatelessWidget {
+  const ConfirmationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
+      backgroundColor: colors.background,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: EdgeInsets.symmetric(horizontal: width * 0.06),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
-                children: const [
+                children: [
                   SizedBox(height: 40),
 
                   // Check Icon
                   CircleAvatar(
-                    radius: 45,
-                    backgroundColor: Color(0xFF0C5F55),
+                    radius: 50,
+                    backgroundColor: colors.primary,
                     child: Icon(
                       Icons.check,
                       color: Colors.white,
@@ -29,26 +32,27 @@ class confirmation extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
                   // Title
                   Text(
                     'Reservation Confirmed!',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 22,
                       fontWeight: FontWeight.w600,
+                      color: colors.onBackground,
                     ),
                     textAlign: TextAlign.center,
                   ),
 
-                  SizedBox(height: 8),
+                  const SizedBox(height: 12),
 
                   // Subtitle
                   Text(
                     'Your table is ready! Thanks for choosing us.',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black54,
+                      color: colors.onBackground.withOpacity(0.7),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -63,17 +67,16 @@ class confirmation extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0C5F55),
+                      backgroundColor: colors.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
-                        ),
+                        MaterialPageRoute(builder: (_) => const HomeScreen()),
+                        (route) => false,
                       );
                     },
                     child: const Text(
@@ -91,7 +94,6 @@ class confirmation extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: Colors.white,
     );
   }
 }

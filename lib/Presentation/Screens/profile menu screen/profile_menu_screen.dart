@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intershipflutter/Constans/widgets/profile info widgets/profile_header.dart';
 import 'package:intershipflutter/Constans/widgets/profile%20info%20widgets/menu_item_card.dart.dart';
 import 'package:intershipflutter/Presentation/Screens/Settings_Screen.dart';
+import 'package:intershipflutter/Presentation/Screens/about_us_screen/about_us_screen.dart';
 import 'package:intershipflutter/Presentation/Screens/profile menu screen/Personal_Info_Screen.dart';
 import 'package:intershipflutter/Presentation/login_screens/login%20screen/Login.dart';
 import 'package:intershipflutter/businessLogic/user provider/user_provider.dart';
@@ -128,10 +129,14 @@ class ProfileMenuScreen extends StatelessWidget {
                   },
                 ),
                 MenuItemCard(
-                  title: 'Support',
+                  title: 'About Us',
                   icon: Icons.help_outline,
                   iconColor: theme.colorScheme.primary,
-                  onTap: () => _showComingSoonSnackbar(context, 'Support'),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const AboutUsScreen()),
+                    );
+                  },
                 ),
                 MenuItemCard(
                   title: 'Log out',
