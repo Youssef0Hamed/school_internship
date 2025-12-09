@@ -12,7 +12,6 @@ class _UpcomingHistoryToggleState extends State<UpcomingHistoryToggle> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final width = MediaQuery.of(context).size.width;
 
@@ -25,42 +24,65 @@ class _UpcomingHistoryToggleState extends State<UpcomingHistoryToggle> {
           color: isDark ? Colors.grey[800] : const Color(0xffF2F2F2),
           borderRadius: BorderRadius.circular(22),
         ),
-        child: Row(
+        child: Stack(
           children: [
-            _item("Upcoming", isSelected: isUpcoming, onTap: () {
-              setState(() => isUpcoming = true);
-            }, colors: colors),
-            _item("History", isSelected: !isUpcoming, onTap: () {
-              setState(() => isUpcoming = false);
-            }, colors: colors),
+            /// SLIDING BACKGROUND
+            AnimatedAlign(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.fastOutSlowIn,
+              alignment: isUpcoming ? Alignment.centerLeft : Alignment.centerRight,
+              child: Container(
+                width: (width * 0.78) / 2 - 6,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: const Color(0xff0E7C7B), width: 1),
+                ),
+              ),
+            ),
+
+            /// TEXT BUTTONS
+            Row(
+              children: [
+                _tab(
+                  text: "Upcoming",
+                  selected: isUpcoming,
+                  onTap: () => setState(() => isUpcoming = true),
+                ),
+                _tab(
+                  text: "History",
+                  selected: !isUpcoming,
+                  onTap: () => setState(() => isUpcoming = false),
+                ),
+              ],
+            )
           ],
         ),
       ),
     );
   }
 
-  Widget _item(String text,
-      {required bool isSelected, required VoidCallback onTap, required ColorScheme colors}) {
-    final mainColor = const Color(0xff0E7C7B);
+  Widget _tab({
+    required String text,
+    required bool selected,
+    required VoidCallback onTap,
+  }) {
+    const mainColor = Color(0xff0E7C7B);
 
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: isSelected ? Colors.white : Colors.transparent,
-            borderRadius: BorderRadius.circular(20),
-            border: isSelected ? Border.all(color: mainColor, width: 1) : null,
-          ),
-          child: Text(
-            text,
+        behavior: HitTestBehavior.translucent,
+        child: Center(
+          child: AnimatedDefaultTextStyle(
+            duration: const Duration(milliseconds: 250),
             style: TextStyle(
-              fontSize: 14,
+              color: selected ? mainColor : Colors.grey,
+              fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: isSelected ? mainColor : Colors.grey,
             ),
+            child: Text(text),
           ),
         ),
       ),
