@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Presentation/Screens/booking%20screens/details.dart';
 import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
-import 'package:intershipflutter/Presentation/Screens/home.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class BookingScreen extends StatefulWidget {
@@ -14,58 +11,55 @@ class BookingScreen extends StatefulWidget {
 }
 
 class _BookingScreenState extends State<BookingScreen> {
-  DateTime _focusedDay = DateTime(2026);
+  DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
   int hour = 12;
-  int minute = 59;
+  int minute = 0;
   bool isPM = true;
 
   int _count = 1;
-
-  void _increment() {
-    setState(() {
-      _count++;
-    });
-  }
-
-  void _decrement() {
-    setState(() {
-      if (_count > 0) _count--; // Optional: Prevent negative values
-    });
-  }
-
   String selected = 'indoor';
+
+  void _increment() => setState(() => _count++);
+  void _decrement() => setState(() { if (_count > 0) _count--; });
 
   void _showWarning(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
         backgroundColor: Colors.red,
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
+      backgroundColor: colors.background,
       appBar: AppBar(
+        backgroundColor: colors.background,
+        elevation: 0,
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back),
-          color: Color(0xFF085651),
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.arrow_back, color: colors.primary),
         ),
         title: Text(
           "Tacos",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: colors.onBackground,
+          ),
         ),
         centerTitle: true,
         actions: [
           Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.only(right: 12),
             child: Row(
               children: [
                 Text(
@@ -73,35 +67,35 @@ class _BookingScreenState extends State<BookingScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 12,
-                    color: Colors.black87,
+                    color: colors.onBackground,
                   ),
                 ),
-                SizedBox(width: 2),
-                Icon(Icons.star, color: Colors.amber, size: 14),
+                const SizedBox(width: 2),
+                const Icon(Icons.star, color: Colors.amber, size: 14),
               ],
             ),
           )
         ],
       ),
+
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // ----------------------- CALENDAR -----------------------
+
+                /// ---------------- CALENDAR ----------------
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  margin: EdgeInsets.symmetric(horizontal: width * 0.03),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: colors.surface,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 1,
-                        spreadRadius: 0,
-                        color: Colors.black12,
-                        offset: Offset(0, 2),
+                        color: isDark ? Colors.black26 : Colors.black12,
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -109,354 +103,258 @@ class _BookingScreenState extends State<BookingScreen> {
                     firstDay: DateTime(2025),
                     lastDay: DateTime(2030),
                     focusedDay: _focusedDay,
-                    selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                    rangeSelectionMode: RangeSelectionMode.toggledOff,
+                    selectedDayPredicate: (day) =>
+                        isSameDay(_selectedDay, day),
+
                     onDaySelected: (selectedDay, focusedDay) {
                       setState(() {
                         _selectedDay = selectedDay;
                         _focusedDay = focusedDay;
                       });
                     },
-                    headerStyle: const HeaderStyle(
+
+                    headerStyle: HeaderStyle(
                       titleCentered: true,
                       formatButtonVisible: false,
                       titleTextStyle: TextStyle(
                         fontSize: 20,
-                        color: Colors.black,
+                        color: colors.onBackground,
                       ),
                       leftChevronIcon:
-                          Icon(Icons.chevron_left, color: Color(0xFF085651)),
+                          Icon(Icons.chevron_left, color: colors.primary),
                       rightChevronIcon:
-                          Icon(Icons.chevron_right, color: Color(0xFF085651)),
+                          Icon(Icons.chevron_right, color: colors.primary),
                     ),
-                    daysOfWeekStyle: const DaysOfWeekStyle(
-                      weekdayStyle: TextStyle(color: Colors.black),
-                      weekendStyle: TextStyle(color: Color(0xFF085651)),
+
+                    daysOfWeekStyle: DaysOfWeekStyle(
+                      weekdayStyle: TextStyle(color: colors.onBackground),
+                      weekendStyle: TextStyle(color: colors.primary),
                     ),
+
                     calendarStyle: CalendarStyle(
-                      defaultTextStyle: TextStyle(color: Colors.black),
-                      weekendTextStyle: TextStyle(color: Colors.black),
+                      defaultTextStyle:
+                          TextStyle(color: colors.onBackground),
+                      weekendTextStyle:
+                          TextStyle(color: colors.primary),
                       todayDecoration: BoxDecoration(
-                        color: Colors.black12,
+                        color: colors.primary.withOpacity(0.2),
                         shape: BoxShape.circle,
                       ),
                       selectedDecoration: BoxDecoration(
-                        color: Color(0xFF085651),
+                        color: colors.primary,
                         shape: BoxShape.circle,
                       ),
                     ),
                   ),
                 ),
 
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
 
-                // ----------------------- TIME PICKER -----------------------
+                /// ---------------- TIME PICKER ----------------
                 Container(
-                  height: 111,
-                  width: MediaQuery.of(context).size.width * 0.85,
-                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+                  width: width * 0.85,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 16,
+                  ),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
+                    color: colors.surface,
+                    borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: isDark ? Colors.black26 : Colors.black12,
                         blurRadius: 4,
                       ),
                     ],
                   ),
+
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       _pickerColumn(
                         value: hour.toString().padLeft(2, "0"),
-                        onUp: () => setState(() => hour = hour % 12 + 1),
+                        onUp: () =>
+                            setState(() => hour = hour % 12 + 1),
                         onDown: () =>
                             setState(() => hour = (hour - 2 + 12) % 12 + 1),
+                        colors: colors,
                       ),
-                      SizedBox(width: 70),
-                      Text(":",
-                          style: TextStyle(
-                              fontSize: 28, fontWeight: FontWeight.bold)),
-                      SizedBox(width: 70),
+
+                      Text(
+                        ":",
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: colors.onBackground,
+                        ),
+                      ),
+
                       _pickerColumn(
                         value: minute.toString().padLeft(2, "0"),
-                        onUp: () => setState(() => minute = (minute + 1) % 60),
+                        onUp: () =>
+                            setState(() => minute = (minute + 1) % 60),
                         onDown: () =>
                             setState(() => minute = (minute - 1 + 60) % 60),
+                        colors: colors,
                       ),
-                      SizedBox(width: 100),
+
                       _pickerColumn(
                         value: isPM ? "PM" : "AM",
                         onUp: () => setState(() => isPM = !isPM),
                         onDown: () => setState(() => isPM = !isPM),
+                        colors: colors,
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Choose the number of guests",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
+
+                const SizedBox(height: 20),
+
+                /// ---------------- GUEST COUNT ----------------
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Choose the number of guests",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: colors.onBackground,
+                    ),
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+
+                const SizedBox(height: 12),
+
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.85,
+                  width: width * 0.85,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
-                    color: Colors.grey[200], // Background color
+                    color: isDark ? Colors.grey[800] : Colors.grey[200],
                     borderRadius: BorderRadius.circular(30),
                   ),
+
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Decrement button
-                      Padding(
-                        padding: const EdgeInsets.all(0),
-                        child: CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Color(0xFF085651),
-                          child: IconButton(
-                            onPressed: _decrement,
-                            icon: const Icon(Icons.remove),
-                            color: Colors.white,
-                          ),
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundColor: colors.primary,
+                        child: IconButton(
+                          onPressed: _decrement,
+                          icon: const Icon(Icons.remove),
+                          color: Colors.white,
                         ),
                       ),
-                      // Number display
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          '$_count',
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+
+                      Text(
+                        '$_count',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: colors.onBackground,
                         ),
                       ),
-                      // Increment button
-                      Padding(
-                        padding: const EdgeInsets.all(0),
-                        child: CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Color(0xFF085651),
-                          child: IconButton(
-                            onPressed: _increment,
-                            icon: const Icon(Icons.add),
-                            color: Colors.white,
-                          ),
+
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundColor: colors.primary,
+                        child: IconButton(
+                          onPressed: _increment,
+                          icon: const Icon(Icons.add),
+                          color: Colors.white,
                         ),
                       ),
                     ],
                   ),
                 ),
 
-                SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 20),
+
+                /// ---------------- INDOOR/OUTDOOR ----------------
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Indoor Option
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selected = 'indoor';
-                        });
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.40,
-                        height: 45,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        decoration: BoxDecoration(
-                            color: selected == 'indoor'
-                                ? Colors.white
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(6),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.21),
-                                blurRadius: 4,
-                              ),
-                            ]),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Circle
-                            Text(
-                              'indoor',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: selected == 'indoor'
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                              ),
-                            ),
-                            SizedBox(width: 8),
-                            Container(
-                              width: 20,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: selected == 'indoor'
-                                    ? Color(0xFF085651)
-                                    : Colors.transparent,
-                                border: Border.all(
-                                    color: Color(0xFF085651), width: 2),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    _seatOption(
+                      "indoor",
+                      selected == "indoor",
+                      () => setState(() => selected = "indoor"),
+                      colors,
                     ),
-
-                    SizedBox(width: 16),
-
-                    // Outdoor Option
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selected = 'outdoor';
-                        });
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.40,
-                        height: 45,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        decoration: BoxDecoration(
-                            color: selected == 'outdoor'
-                                ? Colors.white
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(6),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.21),
-                                blurRadius: 4,
-                              ),
-                            ]),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Circle
-                            Text(
-                              'outdoor',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: selected == 'outdoor'
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                              ),
-                            ),
-                            SizedBox(width: 8),
-                            Container(
-                              width: 20,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: selected == 'outdoor'
-                                    ? Color(0xFF085651)
-                                    : Colors.transparent,
-                                border: Border.all(
-                                    color: Color(0xFF085651), width: 2),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    const SizedBox(width: 16),
+                    _seatOption(
+                      "outdoor",
+                      selected == "outdoor",
+                      () => setState(() => selected = "outdoor"),
+                      colors,
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+
+                const SizedBox(height: 20),
+
+                /// ---------------- BUTTONS ----------------
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.40,
-                      height: 40,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
+                      width: width * 0.40,
+                      height: 45,
+                      child: OutlinedButton(
+                        onPressed: () => Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => const HomeScreen()),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(color: colors.primary),
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Color(0xFF085651)),
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                         child: Text(
                           "Cancel reservation",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: colors.onBackground),
                         ),
                       ),
                     ),
+
+                    const SizedBox(width: 16),
+
                     SizedBox(
-                      width: 22,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.40,
-                      height: 40,
+                      width: width * 0.40,
+                      height: 45,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Check day
                           if (_selectedDay == null) {
                             _showWarning("Please choose a day");
                             return;
                           }
-
-                          // Check time (still default = not chosen)
-                          if (hour == 12 && minute == 59) {
+                          if (hour == 12 && minute == 0) {
                             _showWarning("Please choose a time");
                             return;
                           }
 
-                          // All good ✅
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Details(),
-                            ),
+                                builder: (_) => const Details()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF085651),
+                          backgroundColor: colors.primary,
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Color(0xFF085651)),
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           "Continue",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                          ),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -465,30 +363,86 @@ class _BookingScreenState extends State<BookingScreen> {
     );
   }
 
+  /// ---------------- HELPER WIDGET 🎯 ----------------
   Widget _pickerColumn({
     required String value,
     required VoidCallback onUp,
     required VoidCallback onDown,
+    required ColorScheme colors,
   }) {
     return Column(
       children: [
         InkWell(
           onTap: onUp,
-          child:
-              Icon(Icons.keyboard_arrow_up, size: 35, color: Color(0xFF085651)),
+          child: Icon(Icons.keyboard_arrow_up,
+              size: 32, color: colors.primary),
         ),
-        SizedBox(height: 5),
-        Text(value,
-            style: TextStyle(
-              fontSize: 22,
-            )),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 22,
+            color: colors.onBackground,
+          ),
+        ),
+        const SizedBox(height: 5),
         InkWell(
           onTap: onDown,
           child: Icon(Icons.keyboard_arrow_down,
-              size: 35, color: Color(0xFF085651)),
+              size: 32, color: colors.primary),
         ),
       ],
+    );
+  }
+
+  Widget _seatOption(
+    String label,
+    bool selected,
+    VoidCallback onTap,
+    ColorScheme colors,
+  ) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.40,
+        height: 45,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          color: colors.surface,
+          borderRadius: BorderRadius.circular(6),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.15),
+              blurRadius: 4,
+            ),
+          ],
+        ),
+
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                fontWeight:
+                    selected ? FontWeight.bold : FontWeight.normal,
+                color: colors.onBackground,
+              ),
+            ),
+
+            Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color:
+                    selected ? colors.primary : Colors.transparent,
+                border: Border.all(color: colors.primary, width: 2),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
