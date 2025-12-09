@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Presentation/Screens/home.dart';
-import 'package:intershipflutter/Presentation/Screens/profile%20menu%20screen/profile_menu_screen.dart';
 import 'package:intershipflutter/Presentation/login_screens/signup%20screens/SignupHolder.dart';
 import 'package:intershipflutter/businessLogic/Theme_Provider.dart';
 import 'package:intershipflutter/businessLogic/auth_provider.dart/auth_provider.dart';
@@ -9,8 +8,6 @@ import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provide
 import 'package:intershipflutter/businessLogic/home%20provideres/offer_provider.dart';
 import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
 import 'package:intershipflutter/businessLogic/user%20provider/user_provider.dart';
-
-
 import 'package:provider/provider.dart';
 // 
 void main() {
@@ -24,9 +21,6 @@ void main() {
         ChangeNotifierProvider(create: (_) => Inicatorprovider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
-
-        // ADD THE THEME PROVIDER HERE
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: const MyApp(),
     ),
@@ -38,10 +32,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Signupholder(),
+      theme: themeProvider.lightTheme,
+      darkTheme: themeProvider.darkTheme,
+      themeMode: themeProvider.currentTheme,
+      home: const Signupholder(),
     );
   }
 }
