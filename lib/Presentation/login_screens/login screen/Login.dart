@@ -25,7 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -56,41 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Gap(height * 0.03),
 
                 /// PASSWORD FIELD
-                TextField(
-                  obscureText: !provider.show,
-                  style: TextStyle(color: colors.onSurface),
-                  decoration: InputDecoration(
-                    hintText: "Enter your Password",
-                    hintStyle: TextStyle(
-                      fontSize: width * 0.04,
-                      color: colors.onSurface.withOpacity(0.6),
-                    ),
-                    filled: true,
-                    fillColor: colors.surface,
-                    contentPadding: EdgeInsets.symmetric(
-                      vertical: height * 0.02,
-                      horizontal: width * 0.04,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                      borderSide:
-                          BorderSide(color: Colors.grey.shade600),
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: provider.showpass,
-                      icon: Icon(
-                        provider.show
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                        size: width * 0.05,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                ),
+                Textfiled(" Enter Your Password"),
 
                 Gap(height * 0.015),
 
@@ -139,8 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: width * 0.03),
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.03),
                       child: Text(
                         "or login with",
                         style: TextStyle(
@@ -164,11 +128,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    socialIcon("https://cdn-icons-png.flaticon.com/512/3128/3128304.png"),
+                    socialIcon(
+                        "https://cdn-icons-png.flaticon.com/512/3128/3128304.png"),
                     Gap(width * 0.1),
-                    socialIcon("https://cdn-icons-png.flaticon.com/128/300/300221.png"),
+                    socialIcon(
+                        "https://cdn-icons-png.flaticon.com/128/300/300221.png"),
                     Gap(width * 0.1),
-                    socialIcon("https://cdn-icons-png.flaticon.com/512/731/731985.png"),
+                    socialIcon(
+                        "https://cdn-icons-png.flaticon.com/512/731/731985.png"),
                   ],
                 ),
 
@@ -189,8 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onTap: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                              builder: (_) => Signupholder()),
+                          MaterialPageRoute(builder: (_) => Signupholder()),
                         );
                       },
                       child: Text(
