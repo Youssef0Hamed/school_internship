@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intershipflutter/Presentation/Screens/admin_screens/edit_screen.dart';
+import 'package:intershipflutter/Presentation/Screens/admin_screens/home_admin_screen.dart';
+import 'package:intershipflutter/Presentation/Screens/home.dart';
 import 'package:intershipflutter/Presentation/login_screens/signup%20screens/SignupHolder.dart';
 import 'package:intershipflutter/businessLogic/Theme_Provider.dart';
 import 'package:intershipflutter/businessLogic/auth_provider.dart/auth_provider.dart';
@@ -8,12 +11,13 @@ import 'package:intershipflutter/businessLogic/home%20provideres/offer_provider.
 import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
 import 'package:intershipflutter/businessLogic/user%20provider/user_provider.dart';
 import 'package:provider/provider.dart';
-// 
+
+//
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ThemeProvider()), 
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => OfferProvider()),
         ChangeNotifierProvider(create: (_) => CuisineProvider()),
         ChangeNotifierProvider(create: (_) => RestaurantProvider()),
@@ -38,7 +42,9 @@ class MyApp extends StatelessWidget {
       theme: themeProvider.lightTheme,
       darkTheme: themeProvider.darkTheme,
       themeMode: themeProvider.currentTheme,
-      home: const Signupholder(),
+      // home: const Signupholder(),
+      // home: EditRestaurantScreen(),
+      home: RestaurantListScreen(),
     );
   }
 }

@@ -71,36 +71,36 @@ class RestaurantProvider with ChangeNotifier {
       socialMedia: ['facebook', 'instagram', 'twitter'],
       location: 'elobour',
       amenities: ['WiFi', 'Parking', 'Outdoor Seating'],
-    ),  
+    ),
   ];
   // 🔹 Reviews for the current restaurant
   List<Review> reviews = [
-  Review(
-    id: '1',
-    userName: 'Billie',
-    userImage: 'https://ui-avatars.com/api/?name=Billie',
-    rating: 4.0,
-    reviewText:
-        'I visited Taco last week, and honestly, I was surprised in the best way...',
-    createdAt: DateTime.now().subtract(const Duration(days: 7)),
-  ),
-  Review(
-    id: '2',
-    userName: 'Hamza',
-    userImage: 'https://ui-avatars.com/api/?name=Hamza',
-    rating: 4.0,
-    reviewText: 'Warm vibes and a classy place. Highly recommended.',
-    createdAt: DateTime.now().subtract(const Duration(days: 5)),
-  ),
-  Review(
-    id: '3',
-    userName: 'Sarah',
-    userImage: 'https://ui-avatars.com/api/?name=Sarah',
-    rating: 5.0,
-    reviewText: 'Amazing food and service! Best tacos I’ve ever tried.',
-    createdAt: DateTime.now().subtract(const Duration(days: 3)),
-  ),
-];
+    Review(
+      id: '1',
+      userName: 'Billie',
+      userImage: 'https://ui-avatars.com/api/?name=Billie',
+      rating: 4.0,
+      reviewText:
+          'I visited Taco last week, and honestly, I was surprised in the best way...',
+      createdAt: DateTime.now().subtract(const Duration(days: 7)),
+    ),
+    Review(
+      id: '2',
+      userName: 'Hamza',
+      userImage: 'https://ui-avatars.com/api/?name=Hamza',
+      rating: 4.0,
+      reviewText: 'Warm vibes and a classy place. Highly recommended.',
+      createdAt: DateTime.now().subtract(const Duration(days: 5)),
+    ),
+    Review(
+      id: '3',
+      userName: 'Sarah',
+      userImage: 'https://ui-avatars.com/api/?name=Sarah',
+      rating: 5.0,
+      reviewText: 'Amazing food and service! Best tacos I’ve ever tried.',
+      createdAt: DateTime.now().subtract(const Duration(days: 3)),
+    ),
+  ];
   // 🔹 Menu items
   List<MenuItem> menuItems = [
     MenuItem(
