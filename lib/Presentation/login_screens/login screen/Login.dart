@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intershipflutter/Constans/widgets/login widgets/login_widgets.dart';
-import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
 import 'package:intershipflutter/Presentation/Screens/home.dart';
 import 'package:intershipflutter/Presentation/login_screens/signup screens/SignupHolder.dart';
 import 'package:intershipflutter/businessLogic/home provideres/InicatorProvider.dart';
@@ -97,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: () {},
                         child: Container(
                           padding: const EdgeInsets.only(bottom: 1),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
                                 color: Colors.black87,
@@ -121,11 +120,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     /// LOGIN BUTTON
                     mainbutton(
                       "Login",
-                      width*0.88,
+                      width * 0.88,
                       height * 0.065,
-
-                      onPressed: () 
-                      {
+                      onPressed: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -147,7 +144,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: width * 0.03),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: width * 0.03),
                           child: Text(
                             "or login with",
                             style: TextStyle(
@@ -171,11 +169,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        socialIcon("https://cdn-icons-png.flaticon.com/512/3128/3128304.png"),
+                        socialIcon(
+                            "https://cdn-icons-png.flaticon.com/512/3128/3128304.png"),
                         Gap(width * 0.1),
-                        socialIcon("https://cdn-icons-png.flaticon.com/128/300/300221.png"),
+                        socialIcon(
+                            "https://cdn-icons-png.flaticon.com/128/300/300221.png"),
                         Gap(width * 0.1),
-                        socialIcon("https://cdn-icons-png.flaticon.com/512/731/731985.png"),
+                        socialIcon(
+                            "https://cdn-icons-png.flaticon.com/512/731/731985.png"),
                       ],
                     ),
 
@@ -193,7 +194,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           onTap: () {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (_) => Signupholder()),
+                              MaterialPageRoute(
+                                  builder: (_) => Signupholder()),
                             );
                           },
                           child: Text(
