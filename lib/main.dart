@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       theme: themeProvider.lightTheme,
       darkTheme: themeProvider.darkTheme,
       themeMode: themeProvider.currentTheme,
-      home: const HomePage(),
+      home: const Signupholder(),
     );
   }
 }
