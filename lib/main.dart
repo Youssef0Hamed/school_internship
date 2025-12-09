@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intershipflutter/Presentation/Screens/home.dart';
 import 'package:intershipflutter/Presentation/login_screens/signup%20screens/SignupHolder.dart';
-import 'package:provider/provider.dart';
-// Your Providers
+import 'package:intershipflutter/businessLogic/Theme_Provider.dart';
 import 'package:intershipflutter/businessLogic/auth_provider.dart/auth_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provider.dart';
@@ -46,13 +46,10 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
-      // ADD DARK/LIGHT MODE SUPPORT
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: themeProvider.themeMode,
-
-      home: const Signupholder(),
+      theme: themeProvider.lightTheme,
+      darkTheme: themeProvider.darkTheme,
+      themeMode: themeProvider.currentTheme,
+      home: const HomePage(),
     );
   }
 }

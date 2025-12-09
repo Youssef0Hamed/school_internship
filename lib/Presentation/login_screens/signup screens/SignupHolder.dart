@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Constans/widgets/colors.dart';
-import 'package:intershipflutter/Presentation/login_screens/signup%20screens/Signup.dart';
-import 'package:intershipflutter/Presentation/login_screens/signup%20screens/doneScreen.dart';
-import 'package:intershipflutter/Presentation/login_screens/signup%20screens/Phone_Input_Screen.dart';
-import 'package:intershipflutter/Presentation/login_screens/signup%20screens/Verification_Screen.dart';
-import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
+import 'package:intershipflutter/Presentation/login_screens/signup screens/Signup.dart';
+import 'package:intershipflutter/Presentation/login_screens/signup screens/doneScreen.dart';
+import 'package:intershipflutter/Presentation/login_screens/signup screens/Phone_Input_Screen.dart';
+import 'package:intershipflutter/Presentation/login_screens/signup screens/Verification_Screen.dart';
+import 'package:intershipflutter/businessLogic/home provideres/InicatorProvider.dart';
 import 'package:provider/provider.dart';
 
 class Signupholder extends StatefulWidget {
@@ -19,6 +19,8 @@ class _SignupholderState extends State<Signupholder> {
   Widget build(BuildContext context) {
     final provider = Provider.of<Inicatorprovider>(context);
 
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     void goToNextPage() {
       provider.pageController.nextPage(
         duration: Duration(milliseconds: 300),
@@ -27,15 +29,21 @@ class _SignupholderState extends State<Signupholder> {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.light.backgroundColor,
+      backgroundColor:
+          isDark ? AppColors.dark.backgroundColor : AppColors.light.backgroundColor,
+
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 45, horizontal: 20),
+
         child: Column(
           children: [
-            // Top row with back arrow and indicators
+
+            /// TOP BAR (BACK ARROW + INDICATORS)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
+                /// Back Arrow
                 provider.currentindexuser == 0
                     ? SizedBox(width: 24)
                     : GestureDetector(
@@ -48,20 +56,30 @@ class _SignupholderState extends State<Signupholder> {
                         child: Icon(
                           Icons.arrow_back_ios,
                           size: 22,
-                          color: AppColors.light.primary,
+                          color: isDark
+                              ? AppColors.dark.primary
+                              : AppColors.light.primary,
                         ),
                       ),
+
+                /// Progress Indicators
                 Row(
                   children: List.generate(
                     4,
-                    (index) => Container(
+                    (index) => AnimatedContainer(
+                      duration: Duration(milliseconds: 250),
                       margin: EdgeInsets.symmetric(horizontal: 2),
+
                       width: provider.currentindexuser == index ? 38 : 5,
                       height: 5,
+
                       decoration: BoxDecoration(
                         color: provider.currentindexuser == index
-                            ? AppColors.light.primary
-                            : Colors.grey.shade400,
+                            ? (isDark
+                                ? AppColors.dark.primary
+                                : AppColors.light.primary)
+                            : (isDark ? Colors.white24 : Colors.grey.shade400),
+
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
@@ -70,12 +88,13 @@ class _SignupholderState extends State<Signupholder> {
               ],
             ),
 
-            // PageView
+            /// PAGEVIEW
             Expanded(
               child: PageView(
                 controller: provider.pageController,
                 onPageChanged: provider.changeScreensUsers,
-                physics: NeverScrollableScrollPhysics(), // prevent swipe if you want controlled navigation
+                physics: NeverScrollableScrollPhysics(),
+
                 children: [
                   SignupScreen(nextPage: goToNextPage),
                   PhoneInputScreen(nextPage: goToNextPage),

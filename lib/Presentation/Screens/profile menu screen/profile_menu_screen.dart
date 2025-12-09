@@ -3,8 +3,7 @@ import 'package:intershipflutter/Constans/widgets/profile info widgets/profile_h
 import 'package:intershipflutter/Constans/widgets/profile%20info%20widgets/menu_item_card.dart.dart';
 import 'package:intershipflutter/Presentation/Screens/Settings_Screen.dart';
 import 'package:intershipflutter/Presentation/Screens/profile menu screen/Personal_Info_Screen.dart';
-import 'package:intershipflutter/Presentation/Screens/settings%20screen/settings_screen.dart' hide SettingsScreen;
-import 'package:intershipflutter/Presentation/login_screens/login screens/Login.dart';
+import 'package:intershipflutter/Presentation/login_screens/login%20screen/Login.dart';
 import 'package:intershipflutter/businessLogic/user provider/user_provider.dart';
 import 'package:provider/provider.dart';
 

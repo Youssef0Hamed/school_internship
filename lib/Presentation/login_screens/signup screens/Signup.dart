@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intershipflutter/Constans/widgets/login widgets/login_widgets.dart';
-import 'package:intershipflutter/Presentation/login_screens/login screens/Login.dart';
+import 'package:intershipflutter/Presentation/login_screens/login%20screen/Login.dart';
 
 class SignupScreen extends StatelessWidget {
   final VoidCallback nextPage;
