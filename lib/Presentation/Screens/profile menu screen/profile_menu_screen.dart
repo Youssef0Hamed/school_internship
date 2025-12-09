@@ -3,6 +3,7 @@ import 'package:intershipflutter/Constans/widgets/profile info widgets/profile_h
 import 'package:intershipflutter/Constans/widgets/profile%20info%20widgets/menu_item_card.dart.dart';
 import 'package:intershipflutter/Presentation/Screens/Settings_Screen.dart';
 import 'package:intershipflutter/Presentation/Screens/profile menu screen/Personal_Info_Screen.dart';
+import 'package:intershipflutter/Presentation/Screens/settings%20screen/settings_screen.dart';
 import 'package:intershipflutter/Presentation/login_screens/login screens/Login.dart';
 import 'package:intershipflutter/businessLogic/user provider/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -120,10 +121,12 @@ class ProfileMenuScreen extends StatelessWidget {
                 MenuItemCard(
                   title: 'Settings',
                   icon: Icons.settings,
-                  iconColor: theme.colorScheme.primary,
+                  iconColor: const Color(0xFF1B7B7A),
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const SettingsScreen()),
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const SettingsScreen(),
+                      ),
                     );
                   },
                 ),
