@@ -45,10 +45,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: themeProvider.lightTheme,
-      darkTheme: themeProvider.darkTheme,
-      themeMode: themeProvider.currentTheme,
-      home: const Signupholder(),
+      home: ProfileMenuScreen(),
     );
   }
 }
