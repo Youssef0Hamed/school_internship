@@ -24,7 +24,7 @@ class AppTheme {
     ),
 
     textTheme: TextTheme(
-      bodyLarge: TextStyle(color: _light.titleColor),
+      bodyLarge: TextStyle(color: _light),
       bodyMedium: TextStyle(color: _light.titleColor),
       bodySmall: TextStyle(color: _light.titleColor),
     ),
