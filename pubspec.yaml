@@ -31,7 +31,7 @@ flutter:
     - assets/
 
   fonts:
-    - family: GreatVibest
+    - family: GreatVibes
       fonts:
         - asset: assets/fonts/GreatVibes-Regular.ttf
 
