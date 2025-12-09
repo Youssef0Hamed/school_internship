@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Presentation/Screens/home.dart';
-import 'package:intershipflutter/Presentation/login_screens/signup%20screens/SignupHolder.dart';
 import 'package:intershipflutter/businessLogic/Theme_Provider.dart';
 import 'package:intershipflutter/businessLogic/auth_provider.dart/auth_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
@@ -10,12 +9,11 @@ import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_
 import 'package:intershipflutter/businessLogic/user%20provider/user_provider.dart';
 
 // Import AppTheme
-import 'package:intershipflutter/Constans/widgets/app_theme.dart';
 
 // Your Screens
 
 // THEME PROVIDER
-import 'package:intershipflutter/businessLogic/theme%20provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(
