@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:intershipflutter/Presentation/login_screens/login%20screen/Login.dart';
 import 'package:intershipflutter/businessLogic/Theme_Provider.dart';
 import 'package:provider/provider.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+class AdminSettingsScreen extends StatefulWidget {
+  const AdminSettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
+  State<AdminSettingsScreen> createState() => _AdminSettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
   String selectedLanguage = "English";
 
   @override
@@ -74,6 +75,60 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildLanguageTile("English"),
             const SizedBox(height: 15),
             _buildLanguageTile("Arabic"),
+            const SizedBox(height: 30),
+
+// 🔥 Log Out Button
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.redAccent,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("Log Out"),
+                      content: const Text("Are you sure you want to log out?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text("Cancel"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ));
+
+                            // لو عندك شاشة Login استخدم:
+                            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => LoginScreen()));
+                          },
+                          child: const Text(
+                            "Log Out",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 154, 20, 10)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                child: const Text(
+                  "Log Out",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

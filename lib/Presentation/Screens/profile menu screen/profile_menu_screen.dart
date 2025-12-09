@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Constans/widgets/profile info widgets/profile_header.dart';
 import 'package:intershipflutter/Constans/widgets/profile%20info%20widgets/menu_item_card.dart.dart';
-import 'package:intershipflutter/Presentation/Screens/Settings_Screen.dart';
 import 'package:intershipflutter/Presentation/Screens/about_us_screen/about_us_screen.dart';
 import 'package:intershipflutter/Presentation/Screens/profile menu screen/Personal_Info_Screen.dart';
+import 'package:intershipflutter/Presentation/Screens/settings%20screen/settings_screen.dart';
 import 'package:intershipflutter/Presentation/login_screens/login%20screen/Login.dart';
 import 'package:intershipflutter/businessLogic/user provider/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -39,8 +39,10 @@ class ProfileMenuScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Logout', style: TextStyle(color: theme.textTheme.titleLarge!.color)),
-        content: Text('Are you sure you want to logout?', style: TextStyle(color: theme.textTheme.bodyMedium!.color)),
+        title: Text('Logout',
+            style: TextStyle(color: theme.textTheme.titleLarge!.color)),
+        content: Text('Are you sure you want to logout?',
+            style: TextStyle(color: theme.textTheme.bodyMedium!.color)),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -59,7 +61,8 @@ class ProfileMenuScreen extends StatelessWidget {
                   duration: const Duration(seconds: 2),
                   behavior: SnackBarBehavior.floating,
                   margin: const EdgeInsets.all(16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
                 ),
               );
               Navigator.pushReplacement(
@@ -116,7 +119,8 @@ class ProfileMenuScreen extends StatelessWidget {
                   title: 'Awards and promocodes',
                   icon: Icons.card_giftcard,
                   iconColor: theme.colorScheme.primary,
-                  onTap: () => _showComingSoonSnackbar(context, 'Awards and promocodes'),
+                  onTap: () =>
+                      _showComingSoonSnackbar(context, 'Awards and promocodes'),
                 ),
                 MenuItemCard(
                   title: 'Settings',
