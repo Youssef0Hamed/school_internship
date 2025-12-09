@@ -9,7 +9,7 @@ import 'package:intershipflutter/businessLogic/home%20provideres/offer_provider.
 import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
 import 'package:intershipflutter/businessLogic/user%20provider/user_provider.dart';
 import 'package:provider/provider.dart';
-
+// 
 void main() {
   runApp(
     MultiProvider(
