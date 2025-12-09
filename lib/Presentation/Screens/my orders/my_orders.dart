@@ -37,7 +37,8 @@ class MyOrdersScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8),
-              child: UpcomingHistoryToggle(), // Make sure this widget also adapts to dark mode
+              child:
+                  UpcomingHistoryToggle(), // Make sure this widget also adapts to dark mode
             ),
             Expanded(
               child: ListView.builder(
@@ -45,7 +46,12 @@ class MyOrdersScreen extends StatelessWidget {
                 itemBuilder: (_, i) {
                   return Padding(
                     padding: const EdgeInsets.all(10),
-                    child: MyOrdersWidgets(), // Ensure this widget adapts to dark mode too
+                    child: MyOrdersWidgets(
+                      rebookText: "Cancel",
+                      reviewText: "Change",
+                      onRebook: () {},
+                      onReview: () {},
+                    ), // Ensure this widget adapts to dark mode too
                   );
                 },
               ),

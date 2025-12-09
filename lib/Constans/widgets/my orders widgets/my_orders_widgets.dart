@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
 class MyOrdersWidgets extends StatelessWidget {
-  const MyOrdersWidgets({super.key});
+  final String reviewText;
+  final String rebookText;
+  final VoidCallback onRebook;
+  final VoidCallback onReview;
+
+  const MyOrdersWidgets({
+    super.key,
+    required this.reviewText,
+    required this.rebookText,
+    required this.onRebook,
+    required this.onReview,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +22,19 @@ class MyOrdersWidgets extends StatelessWidget {
     return Center(
       child: Container(
         height: 192,
-        width: 330,
+        width: MediaQuery.of(context).size.width * 0.90,
         decoration: BoxDecoration(
-          color: isDark ? Colors.grey[850] : Colors.grey[200],
+          color: colors.surface,
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? const Color.fromARGB(255, 255, 255, 255).withOpacity(0.3)
+                  : Colors.black.withOpacity(0.25),
+              blurRadius: 3,
+              spreadRadius: 0.50,
+              offset: const Offset(0.55, 0.2),
+            ),
+          ],
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
@@ -25,7 +46,7 @@ class MyOrdersWidgets extends StatelessWidget {
                   // Image
                   Container(
                     height: 100,
-                    width: 160,
+                    width: MediaQuery.of(context).size.width * 0.40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: const DecorationImage(
@@ -40,7 +61,7 @@ class MyOrdersWidgets extends StatelessWidget {
                   // Details
                   Container(
                     height: 113,
-                    width: 130,
+                    width: MediaQuery.of(context).size.width * 0.45,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Column(
@@ -62,19 +83,25 @@ class MyOrdersWidgets extends StatelessWidget {
                               ),
                               Container(
                                 height: 28,
-                                width: 53,
+                                width: 45,
                                 decoration: BoxDecoration(
-                                  color: isDark ? Colors.grey[800] : Colors.white,
+                                  color: isDark
+                                      ? const Color.fromARGB(255, 32, 32, 32)
+                                      : Colors.white,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: const [
-                                    Text(
-                                      "4.3",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        "4.3",
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                     Icon(
@@ -95,14 +122,17 @@ class MyOrdersWidgets extends StatelessWidget {
                                 Icon(
                                   Icons.remove_circle_outline_sharp,
                                   size: 10,
-                                  color: isDark ? Colors.white70 : Colors.black54,
+                                  color:
+                                      isDark ? Colors.white70 : Colors.black54,
                                 ),
                                 const SizedBox(width: 3),
                                 Text(
                                   "Mexican",
                                   style: TextStyle(
                                     fontSize: 7,
-                                    color: isDark ? Colors.white70 : Colors.black54,
+                                    color: isDark
+                                        ? Colors.white70
+                                        : Colors.black54,
                                   ),
                                 ),
                               ],
@@ -116,14 +146,17 @@ class MyOrdersWidgets extends StatelessWidget {
                                 Icon(
                                   Icons.location_on_outlined,
                                   size: 10,
-                                  color: isDark ? Colors.white70 : Colors.black54,
+                                  color:
+                                      isDark ? Colors.white70 : Colors.black54,
                                 ),
                                 const SizedBox(width: 3),
                                 Text(
                                   "1.11 norway london",
                                   style: TextStyle(
                                     fontSize: 7,
-                                    color: isDark ? Colors.white70 : Colors.black54,
+                                    color: isDark
+                                        ? Colors.white70
+                                        : Colors.black54,
                                   ),
                                 ),
                               ],
@@ -141,41 +174,46 @@ class MyOrdersWidgets extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // RE-Book
-                  Container(
-                    width: 140,
-                    height: 44,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "RE-Book",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Theme.of(context).colorScheme.primary,
+                  GestureDetector(
+                    onTap: onReview,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.40,
+                      height: 44,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                              color: Theme.of(context).colorScheme.primary)),
+                      child: Center(
+                        child: Text(
+                          reviewText,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ),
                   ),
+
                   // Review
-                  Container(
-                    width: 140,
-                    height: 44,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "review",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                  GestureDetector(
+                    onTap: onRebook,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.40,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Center(
+                        child: Text(
+                          rebookText,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ),
