@@ -120,12 +120,10 @@ class ProfileMenuScreen extends StatelessWidget {
                 MenuItemCard(
                   title: 'Settings',
                   icon: Icons.settings,
-                  iconColor: const Color(0xFF1B7B7A),
+                  iconColor: theme.colorScheme.primary,
                   onTap: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const SettingsScreen(),
-                      ),
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const SettingsScreen()),
                     );
                   },
                 ),
