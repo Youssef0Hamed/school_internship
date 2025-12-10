@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Constans/text filed/custom_text_field.dart.dart';
 import 'package:intershipflutter/Presentation/Screens/booking screens/confirmation_screen.dart';
+import 'package:intershipflutter/businessLogic/booking_provider/booking_provider.dart';
+import 'package:provider/provider.dart';
 
 class Details extends StatefulWidget {
   const Details({super.key});
@@ -24,6 +26,36 @@ class _DetailsState extends State<Details> {
     super.dispose();
   }
 
+  Future<void> _saveAndContinue() async {
+    final provider = Provider.of<BookingProvider>(context, listen: false);
+
+    // Save the user details into the provider
+    provider.setUserDetails(
+      name: controllername.text.trim(),
+      email: controlleremail.text.trim(),
+      phone: controllerphone.text.trim(),
+      occasion: value,
+    );
+
+    // Call API to send booking data
+    final success = await provider.sendBooking();
+
+    if (success) {
+      // Navigate to ConfirmationScreen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const ConfirmationScreen()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Failed to book. Please try again."),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
@@ -42,7 +74,7 @@ class _DetailsState extends State<Details> {
           "Book a table",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: colors.onBackground, // Auto color based on theme
+            color: colors.onBackground,
           ),
         ),
         centerTitle: true,
@@ -60,7 +92,7 @@ class _DetailsState extends State<Details> {
                   color: colors.onBackground,
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
 
               /// Name
               CustomTextField(
@@ -69,7 +101,7 @@ class _DetailsState extends State<Details> {
                 controller: controllername,
                 enabled: true,
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
 
               /// Email
               CustomTextField(
@@ -78,7 +110,7 @@ class _DetailsState extends State<Details> {
                 controller: controlleremail,
                 enabled: true,
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
 
               /// Phone
               CustomTextField(
@@ -87,7 +119,7 @@ class _DetailsState extends State<Details> {
                 controller: controllerphone,
                 enabled: true,
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
 
               /// Occasion
               Text(
@@ -98,12 +130,12 @@ class _DetailsState extends State<Details> {
                   color: colors.onBackground,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
 
               DropdownButtonFormField<String>(
                 value: value,
                 icon: Icon(Icons.keyboard_arrow_down, color: colors.onBackground),
-                dropdownColor: colors.surface, // Auto dark/light
+                dropdownColor: colors.surface,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: colors.surface,
@@ -121,7 +153,7 @@ class _DetailsState extends State<Details> {
                     borderSide: BorderSide(color: colors.primary),
                   ),
                 ),
-                style: TextStyle(color: colors.onBackground), // text auto update
+                style: TextStyle(color: colors.onBackground),
                 items: const [
                   DropdownMenuItem(value: 'Birthday', child: Text('Birthday')),
                   DropdownMenuItem(value: 'Anniversary', child: Text('Anniversary')),
@@ -138,7 +170,7 @@ class _DetailsState extends State<Details> {
                   }
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -150,12 +182,7 @@ class _DetailsState extends State<Details> {
           height: 50,
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => const ConfirmationScreen()),
-              );
-            },
+            onPressed: _saveAndContinue,
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.primary,
               shape: RoundedRectangleBorder(

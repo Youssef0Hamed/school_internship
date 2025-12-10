@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Presentation/Screens/booking%20screens/details.dart';
 import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
+import 'package:intershipflutter/businessLogic/booking_provider/booking_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:provider/provider.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({super.key});
@@ -21,8 +23,30 @@ class _BookingScreenState extends State<BookingScreen> {
   int _count = 1;
   String selected = 'indoor';
 
+  @override
+  void initState() {
+    super.initState();
+
+    // Set dummy data from provider
+    final bookingProvider =
+        Provider.of<BookingProvider>(context, listen: false);
+    bookingProvider.setDummyData();
+    final data = bookingProvider;
+
+    setState(() {
+      _selectedDay = data.selectedDay;
+      hour = data.hour ?? 12;
+      minute = data.minute ?? 0;
+      isPM = data.isPM ?? true;
+      _count = data.guestCount ?? 1;
+      selected = data.seating ?? 'indoor';
+    });
+  }
+
   void _increment() => setState(() => _count++);
-  void _decrement() => setState(() { if (_count > 0) _count--; });
+  void _decrement() => setState(() {
+        if (_count > 0) _count--;
+      });
 
   void _showWarning(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -77,7 +101,6 @@ class _BookingScreenState extends State<BookingScreen> {
           )
         ],
       ),
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -105,14 +128,12 @@ class _BookingScreenState extends State<BookingScreen> {
                     focusedDay: _focusedDay,
                     selectedDayPredicate: (day) =>
                         isSameDay(_selectedDay, day),
-
                     onDaySelected: (selectedDay, focusedDay) {
                       setState(() {
                         _selectedDay = selectedDay;
                         _focusedDay = focusedDay;
                       });
                     },
-
                     headerStyle: HeaderStyle(
                       titleCentered: true,
                       formatButtonVisible: false,
@@ -125,12 +146,10 @@ class _BookingScreenState extends State<BookingScreen> {
                       rightChevronIcon:
                           Icon(Icons.chevron_right, color: colors.primary),
                     ),
-
                     daysOfWeekStyle: DaysOfWeekStyle(
                       weekdayStyle: TextStyle(color: colors.onBackground),
                       weekendStyle: TextStyle(color: colors.primary),
                     ),
-
                     calendarStyle: CalendarStyle(
                       defaultTextStyle:
                           TextStyle(color: colors.onBackground),
@@ -167,7 +186,6 @@ class _BookingScreenState extends State<BookingScreen> {
                       ),
                     ],
                   ),
-
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -179,7 +197,6 @@ class _BookingScreenState extends State<BookingScreen> {
                             setState(() => hour = (hour - 2 + 12) % 12 + 1),
                         colors: colors,
                       ),
-
                       Text(
                         ":",
                         style: TextStyle(
@@ -188,7 +205,6 @@ class _BookingScreenState extends State<BookingScreen> {
                           color: colors.onBackground,
                         ),
                       ),
-
                       _pickerColumn(
                         value: minute.toString().padLeft(2, "0"),
                         onUp: () =>
@@ -197,7 +213,6 @@ class _BookingScreenState extends State<BookingScreen> {
                             setState(() => minute = (minute - 1 + 60) % 60),
                         colors: colors,
                       ),
-
                       _pickerColumn(
                         value: isPM ? "PM" : "AM",
                         onUp: () => setState(() => isPM = !isPM),
@@ -221,9 +236,7 @@ class _BookingScreenState extends State<BookingScreen> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 12),
-
                 Container(
                   width: width * 0.85,
                   padding: const EdgeInsets.symmetric(
@@ -234,7 +247,6 @@ class _BookingScreenState extends State<BookingScreen> {
                     color: isDark ? Colors.grey[800] : Colors.grey[200],
                     borderRadius: BorderRadius.circular(30),
                   ),
-
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -247,7 +259,6 @@ class _BookingScreenState extends State<BookingScreen> {
                           color: Colors.white,
                         ),
                       ),
-
                       Text(
                         '$_count',
                         style: TextStyle(
@@ -256,7 +267,6 @@ class _BookingScreenState extends State<BookingScreen> {
                           color: colors.onBackground,
                         ),
                       ),
-
                       CircleAvatar(
                         radius: 25,
                         backgroundColor: colors.primary,
@@ -318,9 +328,7 @@ class _BookingScreenState extends State<BookingScreen> {
                         ),
                       ),
                     ),
-
                     const SizedBox(width: 16),
-
                     SizedBox(
                       width: width * 0.40,
                       height: 45,
@@ -335,10 +343,21 @@ class _BookingScreenState extends State<BookingScreen> {
                             return;
                           }
 
+                          // Save all booking data to Provider
+                          Provider.of<BookingProvider>(context, listen: false)
+                              .setBookingData(
+                            day: _selectedDay.toString(),
+                            hour: hour.toString(),
+                            minute: minute.toString(),
+                            isPM: isPM,
+                            guestCount: _count,
+                            seating: selected,
+                          );
+
+                          // Navigate to Details screen
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (_) => const Details()),
+                            MaterialPageRoute(builder: (_) => const Details()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -363,7 +382,6 @@ class _BookingScreenState extends State<BookingScreen> {
     );
   }
 
-  /// ---------------- HELPER WIDGET 🎯 ----------------
   Widget _pickerColumn({
     required String value,
     required VoidCallback onUp,
@@ -417,7 +435,6 @@ class _BookingScreenState extends State<BookingScreen> {
             ),
           ],
         ),
-
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -429,7 +446,6 @@ class _BookingScreenState extends State<BookingScreen> {
                 color: colors.onBackground,
               ),
             ),
-
             Container(
               width: 20,
               height: 20,

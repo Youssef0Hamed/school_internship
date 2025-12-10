@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Presentation/Screens/home%20screen/home_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:intershipflutter/businessLogic/booking_provider/booking_provider.dart';
+import 'package:intl/intl.dart';
 
 class ConfirmationScreen extends StatelessWidget {
   const ConfirmationScreen({super.key});
@@ -8,6 +11,20 @@ class ConfirmationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     final width = MediaQuery.of(context).size.width;
+
+    final provider = Provider.of<BookingProvider>(context);
+    final date = provider.selectedDay != null
+        ? DateFormat('EEE, MMM d, yyyy').format(provider.selectedDay!)
+        : 'N/A';
+    final time = provider.hour != null && provider.minute != null
+        ? '${provider.hour!.toString().padLeft(2, '0')}:${provider.minute!.toString().padLeft(2, '0')} ${provider.isPM! ? "PM" : "AM"}'
+        : 'N/A';
+    final guests = provider.guestCount ?? 0;
+    final seating = provider.seating ?? 'N/A';
+    final name = provider.name ?? 'N/A';
+    final email = provider.email ?? 'N/A';
+    final phone = provider.phone ?? 'N/A';
+    final occasion = provider.occasion ?? 'N/A';
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -19,13 +36,13 @@ class ConfirmationScreen extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
 
                   // Check Icon
                   CircleAvatar(
                     radius: 50,
                     backgroundColor: colors.primary,
-                    child: Icon(
+                    child: const Icon(
                       Icons.check,
                       color: Colors.white,
                       size: 50,
@@ -56,6 +73,18 @@ class ConfirmationScreen extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
+
+                  const SizedBox(height: 30),
+
+                  // Booking Details
+                  _detailRow("Name", name, colors),
+                  _detailRow("Email", email, colors),
+                  _detailRow("Phone", phone, colors),
+                  _detailRow("Occasion", occasion, colors),
+                  _detailRow("Date", date, colors),
+                  _detailRow("Time", time, colors),
+                  _detailRow("Guests", guests.toString(), colors),
+                  _detailRow("Seating", seating, colors),
                 ],
               ),
 
@@ -93,6 +122,28 @@ class ConfirmationScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _detailRow(String label, String value, ColorScheme colors) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "$label:",
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: colors.onBackground,
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(color: colors.onBackground.withOpacity(0.8)),
+          ),
+        ],
       ),
     );
   }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Presentation/Screens/admin_screens/edit_screen.dart';
-import 'package:intershipflutter/Presentation/Screens/admin_screens/home_admin_screen.dart';
+import 'package:intershipflutter/Presentation/admin_screens/edit_screen.dart';
+import 'package:intershipflutter/Presentation/admin_screens/home_admin_screen.dart';
 import 'package:intershipflutter/Presentation/Screens/home.dart';
 import 'package:intershipflutter/Presentation/login_screens/signup%20screens/SignupHolder.dart';
+import 'package:intershipflutter/businessLogic/Favorites%20provider/Favorites_resturant_provider.dart';
 import 'package:intershipflutter/businessLogic/Theme_Provider.dart';
 import 'package:intershipflutter/businessLogic/auth_provider.dart/auth_provider.dart';
+import 'package:intershipflutter/businessLogic/booking_provider/booking_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/offer_provider.dart';
@@ -25,7 +27,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => Inicatorprovider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
-      ],
+        ChangeNotifierProvider(create: (_) => FavoritesProvider ()),
+        ],
       child: const MyApp(),
     ),
   );
@@ -44,8 +47,8 @@ class MyApp extends StatelessWidget {
       darkTheme: themeProvider.darkTheme,
       themeMode: themeProvider.currentTheme,
       // home: const Signupholder(),
-      // home: EditRestaurantScreen(),
-      home: RestaurantListScreen(),
+      home: HomePage(),
+      // home: RestaurantListScreen(),
     );
   }
 }

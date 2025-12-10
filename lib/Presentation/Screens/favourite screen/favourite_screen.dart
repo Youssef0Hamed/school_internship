@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intershipflutter/Constans/models/favouriteCardModel.dart';
 import 'package:intershipflutter/Constans/widgets/colors.dart';
 import 'package:intershipflutter/Constans/widgets/favourite%20card%20widget/favourite_card_widget.dart';
+import 'package:intershipflutter/businessLogic/Favorites%20provider/Favorites_resturant_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provider.dart'
     show CuisineProvider;
 import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
@@ -18,7 +19,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
   String _activeFilter = "all";
 
   // FILTER BUTTON BUILDER
-  Widget _buildFilterButton(String filterId, String label, AppColorScheme colors) {
+  Widget _buildFilterButton(
+      String filterId, String label, AppColorScheme colors) {
     final isActive = _activeFilter == filterId;
 
     return Container(
@@ -56,8 +58,10 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         ? AppColors.dark
         : AppColors.light;
 
-    final restaurants = context.watch<RestaurantProvider>().restaurants;
     final cuisinesProvider = context.watch<CuisineProvider>();
+
+    final favoritesProvider =
+        Provider.of<FavoritesProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -95,13 +99,14 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
 
             // FAVOURITE CARDS
             ListView.builder(
-              itemCount: restaurants.length,
+              itemCount: favoritesProvider.favorites.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (_, i) {
-                final restaurant = restaurants[i];
+                final restaurant = favoritesProvider.favorites[i]; // مهم جداً
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   child: Stack(
                     children: [
                       FavouriteCard(
@@ -110,10 +115,11 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                           title: restaurant.name,
                           rate: restaurant.rating,
                           isFavourite: restaurant.isFavorite,
-                          discount: int.tryParse(
-                                  restaurant.discount.replaceAll('% off', '')) ??
+                          discount: int.tryParse(restaurant.discount
+                                  .replaceAll('% off', '')) ??
                               0,
                         ),
+                        restaurantId: restaurant.id,
                       ),
 
                       // ❤️ Favorite Icon
@@ -122,7 +128,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                         right: 8,
                         child: GestureDetector(
                           onTap: () {
-                            Provider.of<RestaurantProvider>(context, listen: false)
+                            Provider.of<RestaurantProvider>(context,
+                                    listen: false)
                                 .toggleFavorite(restaurant.id);
                           },
                           child: Container(
