@@ -26,7 +26,7 @@ class AboutTab extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            restaurant.about,
+            restaurant.description,
             style: const TextStyle(
               fontSize: 14,
               color: Colors.grey,

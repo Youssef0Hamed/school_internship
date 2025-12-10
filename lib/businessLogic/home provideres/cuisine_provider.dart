@@ -1,18 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:intershipflutter/Constans/models/home%20models/cuisine_model.dart';
-class CuisineProvider with ChangeNotifier {
-  List<CuisineModel> cuisines = [
-    CuisineModel(id: 'all', name: 'All', icon: '🥗', isActive: true),
-    CuisineModel(id: 'italian', name: 'Italian', icon: '🍕'),
-    CuisineModel(id: 'asian', name: 'Asian', icon: '🍜'),
-    CuisineModel(id: 'vegetarian', name: 'Vegetarian', icon: '🥙'),
-    CuisineModel(id: 'mexican', name: 'Mexican', icon: '🌮'),
-  ];
+import 'package:intershipflutter/services/cuisine%20api/cuisine_api.dart';
 
-  void selectCuisine(String id) {
-    for (var c in cuisines) {
-      c.isActive = c.id == id;
+class CuisineProvider with ChangeNotifier {
+  List<CuisineModel> cuisines = [];
+  bool isLoading = false;
+  String? error;
+
+selectCuisine(String cuisineId) {
+    for (var cuisine in cuisines) {
+      cuisine.isActive = cuisine.id == cuisineId;
     }
+    notifyListeners();
+  }
+
+
+  // -------------------
+  // Fetch all cuisines
+  // -------------------
+  Future<void> fetchCuisines() async {
+    try {
+      isLoading = true;
+      notifyListeners();
+
+      cuisines = await CuisineApi.getCuisines();
+
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      error = e.toString();
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // -------------------
+  // Add new cuisine
+  // -------------------
+  Future<void> addCuisine(CuisineModel cuisine) async {
+    try {
+      isLoading = true;
+      notifyListeners();
+
+      final newCuisine = await CuisineApi.createCuisine(cuisine);
+      cuisines.insert(0, newCuisine);
+
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      error = e.toString();
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // -------------------
+  // Reset provider state
+  // -------------------
+  void reset() {
+    error = null;
+    isLoading = false;
     notifyListeners();
   }
 }

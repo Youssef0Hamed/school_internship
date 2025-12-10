@@ -1,54 +1,83 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Constans/models/restaurant%20detail%20models/restaurant_model.dart';
-import 'package:intershipflutter/businessLogic/restaurant%20provider/restaurant_provider.dart';
+import 'package:intershipflutter/Constans/models/favorite_model.dart';
+import 'package:intershipflutter/services/%20favorite%20api/%20favorite_api.dart';
 
-class FavoritesProvider with ChangeNotifier {
-  // لا ننشئ RestaurantProvider جديد هنا
-  // ستستخدمونه من context عند الحاجة
+class FavoriteProvider with ChangeNotifier {
+  Map<int, bool> favorites = {}; // restaurantId : isFavorite
+  bool isLoading = false;
+  String? error;
 
-  List<RestaurantModel> favorites = [];
+  // ------------------------------------------------------------
+  // GET FAVORITES FROM BACKEND
+  // ------------------------------------------------------------
+  Future<void> loadFavorites() async {
+    try {
+      isLoading = true;
+      notifyListeners();
 
+      List<int> ids = await FavoriteApi.getFavorites();
 
-  // تحميل المفضلات من الـ provider الموجود
-  void loadFavorites(RestaurantProvider restaurantProvider) {
-  favorites =
-        restaurantProvider.restaurants.where((r) => r.isFavorite).toList();
-    notifyListeners();
+      favorites = {
+        for (var id in ids) id: true,
+      };
+
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      error = e.toString();
+      isLoading = false;
+      notifyListeners();
+    }
   }
 
-  void toggleFavorite(String restaurantId, RestaurantProvider restaurantProvider) {
-    final index =
-        restaurantProvider.restaurants.indexWhere((r) => r.id == restaurantId);
-    if (index != -1) {
-      final restaurant = restaurantProvider.restaurants[index];
-      restaurant.isFavorite = !restaurant.isFavorite;
+  // ------------------------------------------------------------
+  // POST - TOGGLE FAVORITE
+  // ------------------------------------------------------------
+  Future<void> toggleFavorite(int restaurantId) async {
+    try {
+      isLoading = true;
+      notifyListeners();
 
-      if (restaurant.isFavorite) {
-      favorites.add(restaurant);
-      } else {
-      favorites.removeWhere((r) => r.id == restaurantId);
+      FavoriteModel result = await FavoriteApi.toggleFavorite(restaurantId);
+
+      favorites[result.restaurantId] = result.isFavorite;
+
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      error = e.toString();
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // ------------------------------------------------------------
+  // DELETE FAVORITE
+  // ------------------------------------------------------------
+  Future<void> removeFavorite(int restaurantId) async {
+    try {
+      isLoading = true;
+      notifyListeners();
+
+      bool success = await FavoriteApi.deleteFavorite(restaurantId);
+
+      if (success) {
+        favorites[restaurantId] = false;
       }
+
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      error = e.toString();
+      isLoading = false;
       notifyListeners();
     }
   }
 
-  void addFavorite(RestaurantModel restaurant, RestaurantProvider restaurantProvider) {
-    final index = restaurantProvider.restaurants
-        .indexWhere((r) => r.id == restaurant.id);
-    if (index != -1 && !restaurantProvider.restaurants[index].isFavorite) {
-      restaurantProvider.restaurants[index].isFavorite = true;
-    favorites.add(restaurantProvider.restaurants[index]);
-      notifyListeners();
-    }
-  }
-
-  void removeFavorite(String restaurantId, RestaurantProvider restaurantProvider) {
-    final index =
-        restaurantProvider.restaurants.indexWhere((r) => r.id == restaurantId);
-    if (index != -1 && restaurantProvider.restaurants[index].isFavorite) {
-      restaurantProvider.restaurants[index].isFavorite = false;
-    favorites.removeWhere((r) => r.id == restaurantId);
-      notifyListeners();
-    }
+  // ------------------------------------------------------------
+  // CHECK IF FAVORITE
+  // ------------------------------------------------------------
+  bool isRestaurantFavorite(int restaurantId) {
+    return favorites[restaurantId] ?? false;
   }
 }

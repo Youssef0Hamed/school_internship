@@ -1,79 +1,66 @@
+import 'package:intershipflutter/Constans/models/home%20models/cuisine_model.dart';
+import 'package:intershipflutter/Constans/models/home%20models/table_model.dart';
+import 'package:intershipflutter/Constans/models/restaurant%20detail%20models/menu_item_model.dart';
+
 class RestaurantModel {
-  final String id;
+  final int id;
   final String name;
-  final String cuisine;
+  final String description;
   final String address;
+  final String city;
   final String phone;
   final String email;
-  final String openingHours;
   final double rating;
   final int reviewCount;
-  final String discount;
-  final List<String> images; 
-  final String about;
-  final List<String> socialMedia;
-  final String location;
-  final List<String> amenities;
-  bool isFavorite;
+  final String openTime;
+  final String closeTime;
+  final CuisineModel cuisine;
+  final List<TableModel> tables;
+  final List<MenuItem> menu;
+  final List<String>? images;
+
+  bool isFavorite; // local only
 
   RestaurantModel({
     required this.id,
     required this.name,
-    required this.cuisine,
+    required this.description,
     required this.address,
+    required this.city,
     required this.phone,
     required this.email,
-    required this.openingHours,
     required this.rating,
     required this.reviewCount,
-    required this.discount,
-    required this.about,
-    required this.socialMedia,
-    required this.location,
-    required this.amenities,
+    required this.openTime,
+    required this.closeTime,
+    required this.cuisine,
+    required this.tables,
+    required this.menu,
     this.isFavorite = false,
-   required this.images,
+    this.images,
   });
 
-  // factory RestaurantModel.fromJson(Map<String, dynamic> json) {
-  //   return RestaurantModel(
-  //     id: json['id'] ?? '',
-  //     name: json['name'] ?? '',
-  //     cuisine: json['cuisine'] ?? '',
-  //     address: json['address'] ?? '',
-  //     phone: json['phone'] ?? '',
-  //     email: json['email'] ?? '',
-  //     openingHours: json['openingHours'] ?? '',
-  //     rating: (json['rating'] ?? 0).toDouble(),
-  //     reviewCount: json['reviewCount'] ?? 0,
-  //     discount: json['discount'] ?? '',
-  //     imageUrl: json['imageUrl'] ?? '',
-  //     about: json['about'] ?? '',
-  //     socialMedia: List<String>.from(json['socialMedia'] ?? []),
-  //     location: json['location'] ?? '',
-  //     amenities: List<String>.from(json['amenities'] ?? []),
-  //     isFavorite: json['isFavorite'] ?? false,
-  //   );
-  // }
-
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'id': id,
-  //     'name': name,
-  //     'cuisine': cuisine,
-  //     'address': address,
-  //     'phone': phone,
-  //     'email': email,
-  //     'openingHours': openingHours,
-  //     'rating': rating,
-  //     'reviewCount': reviewCount,
-  //     'discount': discount,
-  //     'imageUrl': imageUrl,
-  //     'about': about,
-  //     'socialMedia': socialMedia,
-  //     'location': location,
-  //     'amenities': amenities,
-  //     'isFavorite': isFavorite,
-  //   };
-  // }
+  factory RestaurantModel.fromJson(Map<String, dynamic> json) {
+    return RestaurantModel(
+      id: json['id'],
+      name: json['name'] ?? '',
+      description: json['description'] ?? '',
+      address: json['address'] ?? '',
+      city: json['city'] ?? '',
+      phone: json['phone'] ?? '',
+      email: json['email'] ?? '',
+      rating: (json['rating'] ?? 0).toDouble(),
+      reviewCount: json['review_count'] ?? 0,
+      openTime: json['open_time'] ?? '',
+      closeTime: json['close_time'] ?? '',
+      cuisine: CuisineModel.fromJson(json['cuisine'] ?? {}),
+      tables: (json['tables'] as List? ?? [])
+          .map((e) => TableModel.fromJson(e))
+          .toList(),
+      menu: (json['menu'] as List? ?? [])
+          .map((e) => MenuItem.fromJson(e))
+          .toList(),
+      images: (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+    );
+  }
 }

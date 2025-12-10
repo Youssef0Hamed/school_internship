@@ -5,13 +5,14 @@ import 'package:intershipflutter/Constans/models/restaurant%20detail%20models/re
 class ReviewsTab extends StatefulWidget {
   final List<Review> reviews;
   final Function(Review) onAddReview;
+  final int restaurantId; // Add restaurantId
 
   const ReviewsTab({
     Key? key,
     required this.reviews,
     required this.onAddReview,
+    required this.restaurantId, // require it
   }) : super(key: key);
-
   @override
   State<ReviewsTab> createState() => _ReviewsTabState();
 }
@@ -37,14 +38,14 @@ class _ReviewsTabState extends State<ReviewsTab> {
     }
 
     final newReview = Review(
-      id: DateTime.now().toString(),
-      userName: 'You',
-      userImage: 'https://i.pravatar.cc/150?img=0',
-      rating: _rating,
-      reviewText: _reviewController.text,
-      createdAt: DateTime.now(),
-    );
-
+  id: DateTime.now().millisecondsSinceEpoch, // integer id
+  restaurantId: widget.restaurantId,          // ✅ pass restaurantId here
+  userName: 'You',
+  userImage: 'https://i.pravatar.cc/150?img=0',
+  rating: _rating,
+  reviewText: _reviewController.text,
+  createdAt: DateTime.now(),
+);
     widget.onAddReview(newReview);
     _reviewController.clear();
     _rating = 0;

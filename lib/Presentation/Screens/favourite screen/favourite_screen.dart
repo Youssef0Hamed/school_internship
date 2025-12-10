@@ -61,7 +61,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
     final cuisinesProvider = context.watch<CuisineProvider>();
 
     final favoritesProvider =
-        Provider.of<FavoritesProvider>(context, listen: false);
+        Provider.of<FavoriteProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -90,7 +90,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                   itemCount: cuisinesProvider.cuisines.length,
                   itemBuilder: (_, i) {
                     final cuisine = cuisinesProvider.cuisines[i];
-                    return _buildFilterButton(cuisine.id, cuisine.name, colors);
+                    return _buildFilterButton(cuisine.id as String, cuisine.name, colors);
                   },
                 ),
               ),
@@ -110,16 +110,15 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                   child: Stack(
                     children: [
                       FavouriteCard(
-                        model: Favouritecardmodel(
-                          imageUrl: restaurant.images.first,
+                        model: FavouriteCardModel(
+                          imageUrl: restaurant.image,
                           title: restaurant.name,
                           rate: restaurant.rating,
-                          isFavourite: restaurant.isFavorite,
+                          isFavourite: restaurant.isFavorite,§
                           discount: int.tryParse(restaurant.discount
                                   .replaceAll('% off', '')) ??
-                              0,
+                              0, restaurantId:  restaurant.id ,
                         ),
-                        restaurantId: restaurant.id,
                       ),
 
                       // ❤️ Favorite Icon
@@ -128,9 +127,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                         right: 8,
                         child: GestureDetector(
                           onTap: () {
-                            Provider.of<RestaurantProvider>(context,
+                            Provider.of<FavoriteProvider>(context,
                                     listen: false)
-                                .toggleFavorite(restaurant.id);
+                                .toggleFavorite(restaurant!.id as int);
                           },
                           child: Container(
                             padding: const EdgeInsets.all(6),

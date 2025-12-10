@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 class RestaurantDetailScreen extends StatefulWidget {
   final String restaurantId;
+
   const RestaurantDetailScreen({Key? key, required this.restaurantId})
       : super(key: key);
 
@@ -108,7 +109,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                             : Icons.favorite_border,
                         color: Colors.redAccent,
                       ),
-                      onPressed: () => provider.toggleFavorite(restaurant.id),
+                      onPressed: () => provider.toggleFavorite(restaurant.id as String),
                     ),
                   ),
                 ],
@@ -118,15 +119,26 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                     children: [
                       PageView.builder(
                         controller: _pageController,
-                        itemCount: restaurant.images.length,
+                        itemCount:
+                            restaurant.images?.length ?? 0, // handle null list
                         onPageChanged: (index) {
                           setState(() => _currentImage = index);
                         },
                         itemBuilder: (_, index) {
-                          return Image.network(
-                            restaurant.images[index],
-                            fit: BoxFit.cover,
-                          );
+                          final imageUrl = restaurant.images?[index] ??
+                              ''; // handle null item
+                          return imageUrl.isNotEmpty
+                              ? Image.network(
+                                  imageUrl,
+                                  fit: BoxFit.cover,
+                                )
+                              : Container(
+                                  color: Colors
+                                      .grey[300], // fallback if image is null
+                                  child: const Center(
+                                    child: Icon(Icons.image_not_supported),
+                                  ),
+                                );
                         },
                       ),
                       Positioned(
@@ -136,18 +148,17 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(
-                            restaurant.images.length,
+                            1,
+                            // restaurant.images.length,
                             (index) => AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
                               width: _currentImage == index ? 22 : 8,
                               height: 8,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 4),
+                              margin: const EdgeInsets.symmetric(horizontal: 4),
                               decoration: BoxDecoration(
-                                color:
-                                    _currentImage == index
-                                        ? Colors.white
-                                        : Colors.white54,
+                                color: _currentImage == index
+                                    ? Colors.white
+                                    : Colors.white54,
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             ),
@@ -179,7 +190,10 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
-                              restaurant.discount,
+                              "11% OFF",
+                              // restaurant.discount != null
+                              //     ? '${restaurant.discount}% OFF'
+                              //     : 'No Discount',
                               style: TextStyle(
                                 color: colors.secondary,
                                 fontWeight: FontWeight.w600,
@@ -226,10 +240,11 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                       Row(
                         children: [
                           Icon(Icons.restaurant,
-                              size: 16, color: colors.onBackground.withOpacity(0.6)),
+                              size: 16,
+                              color: colors.onBackground.withOpacity(0.6)),
                           const SizedBox(width: 8),
                           Text(
-                            restaurant.cuisine,
+                            restaurant.cuisine.name,
                             style: TextStyle(
                               color: colors.onBackground.withOpacity(0.6),
                               fontSize: 14,
@@ -242,7 +257,8 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                       Row(
                         children: [
                           Icon(Icons.location_on,
-                              size: 16, color: colors.onBackground.withOpacity(0.6)),
+                              size: 16,
+                              color: colors.onBackground.withOpacity(0.6)),
                           const SizedBox(width: 8),
                           Text(
                             restaurant.address,
@@ -258,10 +274,11 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                       Row(
                         children: [
                           Icon(Icons.access_time,
-                              size: 16, color: colors.onBackground.withOpacity(0.6)),
+                              size: 16,
+                              color: colors.onBackground.withOpacity(0.6)),
                           const SizedBox(width: 8),
                           Text(
-                            restaurant.openingHours,
+                            '${restaurant.openTime} - ${restaurant.closeTime}',
                             style: TextStyle(
                               color: colors.onBackground.withOpacity(0.6),
                               fontSize: 14,
@@ -300,14 +317,17 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen>
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    MenuTab(menuItems: provider.menuItems),
+                    MenuTab(
+                        menuItems:
+                            restaurant!.menu), // your restaurantModel has menu
                     AboutTab(restaurant: restaurant),
                     ReviewsTab(
-                      reviews: provider.reviews,
-                      onAddReview: (Review review) {
-                        provider.addReview(review);
-                      },
-                    ),
+  reviews: provider.getReviewsForRestaurant(restaurant.id),
+  restaurantId: restaurant.id,  // pass id here
+  onAddReview: (Review review) async {
+    await provider.addReview(review);
+  },
+),
                   ],
                 ),
               ),

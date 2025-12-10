@@ -77,7 +77,7 @@ class _CuisinesSectionState extends State<CuisinesSection> {
   }
 Widget _buildCuisineItem(CuisineModel cuisine, ColorScheme colors) {
   return GestureDetector(
-    onTap: () => _selectCuisine(cuisine.id),
+    onTap: () => _selectCuisine(cuisine.id as String),
     child: Container(
       margin: const EdgeInsets.symmetric(horizontal: 4),
       width: 80,

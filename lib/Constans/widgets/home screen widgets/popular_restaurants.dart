@@ -140,10 +140,9 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 12,
-            color:
-                theme.brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
+            color: theme.brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
             // color: isActive ? Colors.white : colors.primary,
           ),
         ),
@@ -162,7 +161,8 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => RestaurantDetailScreen(restaurantId: restaurant.id),
+            builder: (_) =>
+                RestaurantDetailScreen(restaurantId: restaurant.id.toString()),
           ),
         );
       },
@@ -174,10 +174,9 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
               borderRadius: const BorderRadius.all(Radius.circular(12)),
               boxShadow: [
                 BoxShadow(
-                  color:
-                      theme.brightness == Brightness.dark
-                          ? Colors.white.withOpacity(0.3)
-                          : Colors.black.withOpacity(0.25),
+                  color: theme.brightness == Brightness.dark
+                      ? Colors.white.withOpacity(0.3)
+                      : Colors.black.withOpacity(0.25),
                   blurRadius: 4,
                   spreadRadius: 1,
                   offset: const Offset(0, 2),
@@ -198,29 +197,25 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                         topRight: Radius.circular(12),
                       ),
                       child: CachedNetworkImage(
-                        imageUrl: restaurant.images[0],
+                        imageUrl: restaurant.images![0],
                         height: 120,
                         width: double.infinity,
                         fit: BoxFit.cover,
-                        placeholder:
-                            (context, url) => Container(
-                              color:
-                                  theme.brightness == Brightness.dark
-                                      ? Colors.grey[800]
-                                      : Colors.grey[200],
-                              child: const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            ),
-                        errorWidget:
-                            (context, url, error) => Container(
-                              height: 120,
-                              color:
-                                  theme.brightness == Brightness.dark
-                                      ? Colors.grey[700]
-                                      : Colors.grey[300],
-                              child: const Icon(Icons.broken_image),
-                            ),
+                        placeholder: (context, url) => Container(
+                          color: theme.brightness == Brightness.dark
+                              ? Colors.grey[800]
+                              : Colors.grey[200],
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          height: 120,
+                          color: theme.brightness == Brightness.dark
+                              ? Colors.grey[700]
+                              : Colors.grey[300],
+                          child: const Icon(Icons.broken_image),
+                        ),
                       ),
                     ),
 
@@ -229,7 +224,7 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                       top: 4,
                       right: 4,
                       child: GestureDetector(
-                        onTap: () => _toggleFavorite(restaurant.id),
+                        onTap: () => _toggleFavorite(restaurant.id as String),
                         child: Container(
                           decoration: BoxDecoration(
                             color: colors.surface,
@@ -252,7 +247,7 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                               Provider.of<RestaurantProvider>(
                                 context,
                                 listen: false,
-                              ).toggleFavorite(restaurant.id);
+                              ).toggleFavorite(restaurant.id as String);
                             },
                           ),
                         ),
@@ -333,7 +328,8 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
                           const SizedBox(width: 4),
                           Expanded(
                             child: Text(
-                              restaurant.location,
+                              "eloubor",
+                              // "${restaurant.location.city}, ${restaurant.location.country}",
                               style: TextStyle(
                                 fontSize: 10,
                                 color: colors.onSurface.withOpacity(0.6),

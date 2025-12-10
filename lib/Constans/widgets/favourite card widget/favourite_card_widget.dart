@@ -3,8 +3,8 @@ import 'package:intershipflutter/Constans/models/favouriteCardModel.dart';
 
 class FavouriteCard extends StatelessWidget {
 
-  final Favouritecardmodel model;
-  const FavouriteCard({super.key, required this.model, required String restaurantId});
+  final FavouriteCardModel model;
+  const FavouriteCard({super.key, required this.model, });
 
   @override
   Widget build(BuildContext context, ) {
