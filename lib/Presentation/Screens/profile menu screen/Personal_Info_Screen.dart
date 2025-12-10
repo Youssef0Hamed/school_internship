@@ -4,7 +4,6 @@ import 'package:intershipflutter/Constans/widgets/profile%20info%20widgets/profi
 import 'package:intershipflutter/businessLogic/user%20provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
-
 class PersonalInfoScreen extends StatefulWidget {
   const PersonalInfoScreen({Key? key}) : super(key: key);
 
@@ -54,56 +53,20 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   void _saveChanges() async {
     final userProvider = context.read<UserProvider>();
 
-    // Validate inputs
     if (_fullNameController.text.isEmpty ||
         _phoneController.text.isEmpty ||
         _emailController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Please fill in all fields'),
-          backgroundColor: Colors.red[600],
-          duration: const Duration(seconds: 2),
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.all(16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      );
+      _showSnack("Please fill in all fields", Colors.red);
       return;
     }
 
-    // Validate email format
     if (!_isValidEmail(_emailController.text)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Please enter a valid email address'),
-          backgroundColor: Colors.red[600],
-          duration: const Duration(seconds: 2),
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.all(16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      );
+      _showSnack("Please enter a valid email address", Colors.red);
       return;
     }
 
-    // Validate phone number format
     if (!_isValidPhoneNumber(_phoneController.text)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Please enter a valid phone number'),
-          backgroundColor: Colors.red[600],
-          duration: const Duration(seconds: 2),
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.all(16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      );
+      _showSnack("Please enter a valid phone number", Colors.red);
       return;
     }
 
@@ -115,19 +78,21 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
     if (mounted) {
       _toggleEditMode();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Profile updated successfully'),
-          backgroundColor: Colors.green[600],
-          duration: const Duration(seconds: 2),
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.all(16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      );
+      _showSnack("Profile updated successfully", Colors.green);
     }
+  }
+
+  void _showSnack(String message, Color color) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: color,
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
   }
 
   bool _isValidEmail(String email) {
@@ -144,8 +109,11 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: colors.background,
       body: Consumer<UserProvider>(
         builder: (context, userProvider, child) {
           return SingleChildScrollView(
@@ -172,34 +140,36 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                             onTap: () => Navigator.pop(context),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: colors.surface,
                                 borderRadius: BorderRadius.circular(12),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.08),
+                                    color: isDark
+                                        ? Colors.black26
+                                        : Colors.black12,
                                     blurRadius: 8,
                                     offset: const Offset(0, 2),
                                   ),
                                 ],
                               ),
                               padding: const EdgeInsets.all(8),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.arrow_back,
-                                color: Color(0xFF1B7B7A),
+                                color: colors.primary,
                               ),
                             ),
                           ),
                           if (!userProvider.isLoading)
                             GestureDetector(
-                              onTap: _isEditing ? _saveChanges : _toggleEditMode,
+                              onTap:
+                                  _isEditing ? _saveChanges : _toggleEditMode,
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFF1B7B7A),
+                                  color: colors.primary,
                                   borderRadius: BorderRadius.circular(12),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: const Color(0xFF1B7B7A)
-                                          .withOpacity(0.2),
+                                      color: colors.primary.withOpacity(0.2),
                                       blurRadius: 8,
                                       offset: const Offset(0, 2),
                                     ),
@@ -211,8 +181,8 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                                 ),
                                 child: Text(
                                   _isEditing ? 'Save' : 'Edit',
-                                  style: const TextStyle(
-                                    color: Colors.white,
+                                  style: TextStyle(
+                                    color: colors.onPrimary,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
                                   ),
@@ -224,7 +194,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
                       const SizedBox(height: 24),
 
-                      // Form Fields
+                      // Full Name
                       CustomTextField(
                         label: 'Full Name',
                         hintText: 'Enter your full name',
@@ -233,27 +203,29 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                       ),
                       const SizedBox(height: 20),
 
-                      // Phone Number with Change button
+                      // Phone Number
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'Phone Number',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Colors.black87,
+                              color: colors.onBackground,
                               letterSpacing: 0.3,
                             ),
                           ),
                           const SizedBox(height: 8),
                           Container(
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: colors.surface,
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.05),
+                                  color: isDark
+                                      ? Colors.black26
+                                      : Colors.black12,
                                   blurRadius: 8,
                                   offset: const Offset(0, 2),
                                 ),
@@ -269,19 +241,19 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                                   Expanded(
                                     child: Text(
                                       _phoneController.text,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 14,
-                                        color: Colors.black87,
+                                        color: colors.onBackground,
                                       ),
                                     ),
                                   ),
                                   if (!_isEditing)
                                     GestureDetector(
                                       onTap: _toggleEditMode,
-                                      child: const Text(
+                                      child: Text(
                                         'Change',
                                         style: TextStyle(
-                                          color: Color(0xFF1B7B7A),
+                                          color: colors.primary,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 14,
                                         ),
@@ -310,6 +282,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                           ],
                         ),
 
+                      // Email
                       CustomTextField(
                         label: 'Email',
                         hintText: 'Enter your email',
@@ -327,15 +300,17 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                                 onTap: _resetChanges,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: colors.surface,
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(
-                                      color: Colors.grey[300]!,
+                                      color: colors.onSurface.withOpacity(0.2),
                                       width: 1,
                                     ),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.05),
+                                        color: isDark
+                                            ? Colors.black26
+                                            : Colors.black12,
                                         blurRadius: 8,
                                         offset: const Offset(0, 2),
                                       ),
@@ -344,11 +319,11 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 12,
                                   ),
-                                  child: const Center(
+                                  child: Center(
                                     child: Text(
                                       'Cancel',
                                       style: TextStyle(
-                                        color: Colors.black87,
+                                        color: colors.onBackground,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 16,
                                       ),
@@ -363,12 +338,11 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                                 onTap: _saveChanges,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF1B7B7A),
+                                    color: colors.primary,
                                     borderRadius: BorderRadius.circular(12),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: const Color(0xFF1B7B7A)
-                                            .withOpacity(0.2),
+                                        color: colors.primary.withOpacity(0.2),
                                         blurRadius: 8,
                                         offset: const Offset(0, 2),
                                       ),
@@ -377,11 +351,11 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 12,
                                   ),
-                                  child: const Center(
+                                  child: Center(
                                     child: Text(
                                       'Save Changes',
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: colors.onPrimary,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 16,
                                       ),
@@ -406,4 +380,3 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     );
   }
 }
-

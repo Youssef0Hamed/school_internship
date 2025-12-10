@@ -28,6 +28,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => FavoritesProvider ()),
+        ChangeNotifierProvider(create: (_) => BookingProvider()),
         ],
       child: const MyApp(),
     ),
