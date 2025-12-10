@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intershipflutter/Presentation/Screens/profile%20menu%20screen/profile_menu_screen.dart';
+import 'package:intershipflutter/Presentation/login_screens/forget%20pass%20screen/forget_pass.dart';
+import 'package:intershipflutter/Presentation/login_screens/forget%20pass%20screen/reset_pass.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/InicatorProvider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/cuisine_provider.dart';
 import 'package:intershipflutter/businessLogic/home%20provideres/offer_provider.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProfileMenuScreen(),
+      home: ResetPasswordScreen(),
     );
   }
 }
