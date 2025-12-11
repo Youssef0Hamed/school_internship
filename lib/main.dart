@@ -47,8 +47,8 @@ class MyApp extends StatelessWidget {
       theme: themeProvider.lightTheme,
       darkTheme: themeProvider.darkTheme,
       themeMode: themeProvider.currentTheme,
-      // home: const Signupholder(),
-      home: HomePage(),
+      home: const Signupholder(),
+      // home: HomePage(),
       // home: RestaurantListScreen(),
     );
   }

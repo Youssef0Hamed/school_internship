@@ -71,8 +71,8 @@ class BookingProvider extends ChangeNotifier {
     };
   }
 
-  Future<bool> sendBooking() async {
-    final result = await BookingAPI.sendBooking(toJson());
-    return result;
-  }
+  // Future<bool> sendBooking() async {
+  //   final result = await BookingAPI.sendBooking(toJson());
+  //   return result;
+  // }
 }
