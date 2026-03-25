@@ -1,24 +1,20 @@
-<<<<<<< HEAD
-# school_internship
-=======
-# intershipflutter
->>>>>>> HH/UI
+I’m happy to share that I have successfully completed a 4-week Advanced Flutter Internship in November 2025 🎉 
 
-A new Flutter project.
+This certificate was awarded to me in recognition of my dedication and performance throughout the program. 
 
-## Getting Started
+Grateful for the opportunity to learn and grow, and special thanks to the P-TECH & IBM Egypt team for their support and guidance. 
 
-This project is a starting point for a Flutter application.
+As part of this journey, we worked on a project where I contributed to the frontend development using Flutter. 
+You can check out the work here: 
+🔗 Figma Design: https://lnkd.in/dbGTGZ-t 
+🔗 GitHub Repository: https://lnkd.in/dNYmjYsC 
 
-A few resources to get you started if this is your first Flutter project:
+Proud to collaborate with an amazing team: 
+- Youssef Hamed– Frontend Developer 
+- Omar Mahmoud – Frontend Developer 
+- Karim Mahmoud – UI/UX Designer 
+- Hamza Hazem – Backend Developer 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Looking forward to applying these advanced Flutter skills in real-world projects 🚀 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-<<<<<<< HEAD
-# school_internship
-=======
->>>>>>> HH/UI
+hashtag#Flutter hashtag#MobileDevelopment hashtag#Internship hashtag#LearningJourney hashtag#IBM hashtag#PTECH
